@@ -15,5 +15,8 @@ See [Getting started][1] for instructions on how to get started developing.
 
 You can also browse the [docs directory][2] for more documentation.
 
+For the AVIF decode-oriented build subset (libavif Android), see [AVIF profile][3].
+
 [1]: ./docs/getting_started.md
 [2]: ./docs/
+[3]: ./docs/avif_profile.md

@@ -2046,6 +2046,7 @@ int ScalePlane(const uint8_t* src,
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int ScalePlane_16(const uint16_t* src,
                   int src_stride,
@@ -2695,6 +2696,7 @@ int Scale(const uint8_t* src_y,
                    dst_height, interpolate ? kFilterBox : kFilterNone);
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #ifdef __cplusplus
 }  // extern "C"
 }  // namespace libyuv

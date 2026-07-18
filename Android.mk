@@ -1,13 +1,42 @@
 # This is the Android makefile for libyuv for NDK.
+#
+# LIBYUV_AVIF_PROFILE=yes (default) builds the AVIF decode subset:
+# 8-bit YUV420/400+alpha, ScalePlane, ARGBAttenuate. Set
+# LIBYUV_AVIF_PROFILE=no for the full library.
 
 # Ignore this file during non-NDK builds.
 ifdef NDK_ROOT
 LOCAL_PATH:= $(call my-dir)
 
+# Default to AVIF profile for this fork.
+LIBYUV_AVIF_PROFILE ?= yes
+
 include $(CLEAR_VARS)
 
 LOCAL_CPP_EXTENSION := .cc
 
+ifeq ($(LIBYUV_AVIF_PROFILE),yes)
+LOCAL_SRC_FILES := \
+    source/convert_argb.cc      \
+    source/cpu_id.cc            \
+    source/planar_functions.cc  \
+    source/row_any.cc           \
+    source/row_common.cc        \
+    source/row_gcc.cc           \
+    source/row_neon.cc          \
+    source/row_neon64.cc        \
+    source/row_win.cc           \
+    source/scale.cc             \
+    source/scale_any.cc         \
+    source/scale_common.cc      \
+    source/scale_gcc.cc         \
+    source/scale_neon.cc        \
+    source/scale_neon64.cc      \
+    source/scale_win.cc         \
+    source/video_common.cc
+common_CFLAGS := -Wall -fexceptions -DLIBYUV_AVIF_PROFILE \
+    -ffunction-sections -fdata-sections
+else
 LOCAL_SRC_FILES := \
     source/compare.cc           \
     source/compare_common.cc    \
@@ -50,13 +79,14 @@ LOCAL_SRC_FILES := \
     source/video_common.cc
 
 common_CFLAGS := -Wall -fexceptions
-ifneq ($(LIBYUV_DISABLE_JPEG), "yes")
+ifneq ($(LIBYUV_DISABLE_JPEG),yes)
 LOCAL_SRC_FILES += \
     source/convert_jpeg.cc      \
     source/mjpeg_decoder.cc     \
     source/mjpeg_validate.cc
 common_CFLAGS += -DHAVE_JPEG
 LOCAL_SHARED_LIBRARIES := libjpeg
+endif
 endif
 
 LOCAL_CFLAGS += $(common_CFLAGS)
@@ -73,12 +103,15 @@ include $(CLEAR_VARS)
 
 LOCAL_WHOLE_STATIC_LIBRARIES := libyuv_static
 LOCAL_MODULE := libyuv
-ifneq ($(LIBYUV_DISABLE_JPEG), "yes")
+ifneq ($(LIBYUV_AVIF_PROFILE),yes)
+ifneq ($(LIBYUV_DISABLE_JPEG),yes)
 LOCAL_SHARED_LIBRARIES := libjpeg
+endif
 endif
 
 include $(BUILD_SHARED_LIBRARY)
 
+ifneq ($(LIBYUV_AVIF_PROFILE),yes)
 include $(CLEAR_VARS)
 LOCAL_STATIC_LIBRARIES := libyuv_static
 LOCAL_SHARED_LIBRARIES := libjpeg
@@ -107,4 +140,5 @@ LOCAL_SRC_FILES := \
 
 LOCAL_MODULE := libyuv_unittest
 include $(BUILD_NATIVE_TEST)
+endif
 endif  # NDK_ROOT

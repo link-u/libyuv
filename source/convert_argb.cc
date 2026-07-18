@@ -13,10 +13,14 @@
 #include <assert.h>
 #include <limits.h>
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 #include "libyuv/convert_from_argb.h"
+#endif
 #include "libyuv/cpu_id.h"
 #include "libyuv/planar_functions.h"  // For CopyPlane and ARGBShuffle.
+#if !defined(LIBYUV_AVIF_PROFILE)
 #include "libyuv/rotate_argb.h"
+#endif
 #include "libyuv/row.h"
 #include "libyuv/scale_row.h"  // For ScaleRowUp2_Linear and ScaleRowUp2_Bilinear
 #include "libyuv/video_common.h"
@@ -301,6 +305,7 @@ int U420ToABGR(const uint8_t* src_y,
 }
 
 // Convert I422 to ARGB with matrix.
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422ToARGBMatrix(const uint8_t* src_y,
                      int src_stride_y,
@@ -2217,6 +2222,7 @@ int P210ToAR30Matrix(const uint16_t* src_y,
 }
 
 // Convert I420 with Alpha to preattenuated ARGB with matrix.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420AlphaToARGBMatrix(const uint8_t* src_y,
                           int src_stride_y,
@@ -2370,6 +2376,7 @@ int I420AlphaToARGBMatrix(const uint8_t* src_y,
 }
 
 // Convert I422 with Alpha to preattenuated ARGB with matrix.
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422AlphaToARGBMatrix(const uint8_t* src_y,
                           int src_stride_y,
@@ -2656,6 +2663,7 @@ int I444AlphaToARGBMatrix(const uint8_t* src_y,
 }
 
 // Convert I420 with Alpha to ARGB.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420AlphaToARGB(const uint8_t* src_y,
                     int src_stride_y,
@@ -2699,6 +2707,7 @@ int I420AlphaToABGR(const uint8_t* src_y,
 }
 
 // Convert I422 with Alpha to ARGB.
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422AlphaToARGB(const uint8_t* src_y,
                     int src_stride_y,
@@ -3177,6 +3186,7 @@ int I410AlphaToARGBMatrix(const uint16_t* src_y,
 }
 
 // Convert I400 to ARGB with matrix.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I400ToARGBMatrix(const uint8_t* src_y,
                      int src_stride_y,
@@ -3347,6 +3357,7 @@ int J400ToARGB(const uint8_t* src_y,
   }
   return 0;
 }
+#if !defined(LIBYUV_AVIF_PROFILE)
 
 #ifndef __riscv
 // Shuffle table for converting BGRA to ARGB.
@@ -5379,6 +5390,7 @@ int NV12ToRGB565(const uint8_t* src_y,
 }
 
 // Convert I422 to RGBA with matrix.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420ToRGBAMatrix(const uint8_t* src_y,
                      int src_stride_y,
@@ -5733,6 +5745,7 @@ int H420ToRAW(const uint8_t* src_y,
 }
 
 // Convert I422 to RGB24 with matrix.
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422ToRGB24Matrix(const uint8_t* src_y,
                       int src_stride_y,
@@ -6062,6 +6075,7 @@ int I420ToARGB4444(const uint8_t* src_y,
 }
 
 // Convert I420 to RGB565 with specified color matrix.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420ToRGB565Matrix(const uint8_t* src_y,
                        int src_stride_y,
@@ -6205,6 +6219,7 @@ int H420ToRGB565(const uint8_t* src_y,
 }
 
 // Convert I422 to RGB565 with specified color matrix.
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422ToRGB565Matrix(const uint8_t* src_y,
                        int src_stride_y,
@@ -6627,6 +6642,7 @@ int H420ToAB30(const uint8_t* src_y,
                           &kYvuH709Constants, width, height);
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 static int I420ToARGBMatrixBilinear(const uint8_t* src_y,
                                     int src_stride_y,
                                     const uint8_t* src_u,
@@ -6780,6 +6796,7 @@ static int I420ToARGBMatrixBilinear(const uint8_t* src_y,
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 static int I422ToARGBMatrixLinear(const uint8_t* src_y,
                                   int src_stride_y,
                                   const uint8_t* src_u,
@@ -6904,6 +6921,7 @@ static int I422ToARGBMatrixLinear(const uint8_t* src_y,
   return 0;
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 static int I420ToRGB24MatrixBilinear(const uint8_t* src_y,
                                      int src_stride_y,
                                      const uint8_t* src_u,
@@ -7057,6 +7075,7 @@ static int I420ToRGB24MatrixBilinear(const uint8_t* src_y,
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 static int I010ToAR30MatrixBilinear(const uint16_t* src_y,
                                     int src_stride_y,
                                     const uint16_t* src_u,
@@ -7515,6 +7534,7 @@ static int I210ToARGBMatrixLinear(const uint16_t* src_y,
   return 0;
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 static int I420AlphaToARGBMatrixBilinear(
     const uint8_t* src_y,
     int src_stride_y,
@@ -7739,6 +7759,7 @@ static int I420AlphaToARGBMatrixBilinear(
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 static int I422AlphaToARGBMatrixLinear(const uint8_t* src_y,
                                        int src_stride_y,
                                        const uint8_t* src_u,
@@ -8840,6 +8861,7 @@ int I422ToRGB24MatrixFilter(const uint8_t* src_y,
   return -1;
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420ToARGBMatrixFilter(const uint8_t* src_y,
                            int src_stride_y,
@@ -8871,6 +8893,7 @@ int I420ToARGBMatrixFilter(const uint8_t* src_y,
   return -1;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422ToARGBMatrixFilter(const uint8_t* src_y,
                            int src_stride_y,
@@ -8900,6 +8923,7 @@ int I422ToARGBMatrixFilter(const uint8_t* src_y,
   return -1;
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420ToRGB24MatrixFilter(const uint8_t* src_y,
                             int src_stride_y,
@@ -8929,6 +8953,7 @@ int I420ToRGB24MatrixFilter(const uint8_t* src_y,
   return -1;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I010ToAR30MatrixFilter(const uint16_t* src_y,
                            int src_stride_y,
@@ -9045,6 +9070,7 @@ int I210ToARGBMatrixFilter(const uint16_t* src_y,
   return -1;
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420AlphaToARGBMatrixFilter(const uint8_t* src_y,
                                 int src_stride_y,
@@ -9079,6 +9105,7 @@ int I420AlphaToARGBMatrixFilter(const uint8_t* src_y,
   return -1;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422AlphaToARGBMatrixFilter(const uint8_t* src_y,
                                 int src_stride_y,
@@ -9291,6 +9318,7 @@ int P210ToAR30MatrixFilter(const uint16_t* src_y,
   return -1;
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #ifdef __cplusplus
 }  // extern "C"
 }  // namespace libyuv
