@@ -328,7 +328,6 @@ void ScaleRowDown2Box_16To8_Odd_C(const uint16_t* src_ptr,
   }
   dst[0] = STATIC_CAST(uint8_t, C16TO8((s[0] + t[0] + 1) >> 1, scale));
 }
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleRowDown4_C(const uint8_t* src_ptr,
                      ptrdiff_t src_stride,
@@ -347,7 +346,6 @@ void ScaleRowDown4_C(const uint8_t* src_ptr,
   }
 }
 
-#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown4_16_C(const uint16_t* src_ptr,
                         ptrdiff_t src_stride,
                         uint16_t* dst,
@@ -364,7 +362,6 @@ void ScaleRowDown4_16_C(const uint16_t* src_ptr,
     dst[0] = src_ptr[2];
   }
 }
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleRowDown4Box_C(const uint8_t* src_ptr,
                         ptrdiff_t src_stride,
@@ -403,7 +400,6 @@ void ScaleRowDown4Box_C(const uint8_t* src_ptr,
   }
 }
 
-#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown4Box_16_C(const uint16_t* src_ptr,
                            ptrdiff_t src_stride,
                            uint16_t* dst,
@@ -1027,7 +1023,6 @@ void ScaleRowDown38_2_Box_16_C(const uint16_t* src_ptr,
     dst_ptr += 3;
   }
 }
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleAddRow_C(const uint8_t* src_ptr, uint16_t* dst_ptr, int src_width) {
   int x;
@@ -1043,7 +1038,6 @@ void ScaleAddRow_C(const uint8_t* src_ptr, uint16_t* dst_ptr, int src_width) {
   }
 }
 
-#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleAddRow_16_C(const uint16_t* src_ptr,
                       uint32_t* dst_ptr,
                       int src_width) {

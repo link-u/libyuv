@@ -258,6 +258,7 @@ void ScalePlaneDown2_16To8(int src_width,
 // its original size.
 #endif  // !defined(LIBYUV_AVIF_PROFILE)
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 static void ScalePlaneDown4(int src_width,
                             int src_height,
                             int dst_width,
@@ -329,6 +330,7 @@ static void ScalePlaneDown4(int src_width,
     dst_ptr += dst_stride;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScalePlaneDown4_16(int src_width,
@@ -912,6 +914,8 @@ static void ScaleAddCols1_16_C(int dst_width,
 // through source, sampling a box of pixel with simple
 // averaging.
 #endif  // !defined(LIBYUV_AVIF_PROFILE)
+
+#if !defined(LIBYUV_AVIF_PROFILE)  // box filter unused for kFilterBilinear
 static int ScalePlaneBox(int src_width,
                          int src_height,
                          int dst_width,
@@ -1000,6 +1004,7 @@ static int ScalePlaneBox(int src_width,
   }
   return 0;
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static int ScalePlaneBox_16(int src_width,
@@ -2032,6 +2037,7 @@ int ScalePlane(const uint8_t* src,
                        dst_stride, src, dst, filtering);
       return 0;
     }
+#if !defined(LIBYUV_AVIF_PROFILE)
     if (4 * dst_width == src_width && 4 * dst_height == src_height &&
         (filtering == kFilterBox || filtering == kFilterNone)) {
       // optimized, 1/4
@@ -2039,11 +2045,14 @@ int ScalePlane(const uint8_t* src,
                       dst_stride, src, dst, filtering);
       return 0;
     }
+#endif
   }
+#if !defined(LIBYUV_AVIF_PROFILE)
   if (filtering == kFilterBox && dst_height * 2 < src_height) {
     return ScalePlaneBox(src_width, src_height, dst_width, dst_height,
                          src_stride, dst_stride, src, dst);
   }
+#endif
   if ((dst_width + 1) / 2 == src_width && filtering == kFilterLinear) {
     ScalePlaneUp2_Linear(src_width, src_height, dst_width, dst_height,
                          src_stride, dst_stride, src, dst);

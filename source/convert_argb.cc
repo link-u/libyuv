@@ -30,6 +30,7 @@ namespace libyuv {
 extern "C" {
 #endif
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 // Copy ARGB with optional flipping
 LIBYUV_API
 int ARGBCopy(const uint8_t* src_argb,
@@ -305,7 +306,6 @@ int U420ToABGR(const uint8_t* src_y,
 }
 
 // Convert I422 to ARGB with matrix.
-#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422ToARGBMatrix(const uint8_t* src_y,
                      int src_stride_y,
@@ -2222,7 +2222,6 @@ int P210ToAR30Matrix(const uint16_t* src_y,
 }
 
 // Convert I420 with Alpha to preattenuated ARGB with matrix.
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420AlphaToARGBMatrix(const uint8_t* src_y,
                           int src_stride_y,
@@ -2376,7 +2375,6 @@ int I420AlphaToARGBMatrix(const uint8_t* src_y,
 }
 
 // Convert I422 with Alpha to preattenuated ARGB with matrix.
-#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422AlphaToARGBMatrix(const uint8_t* src_y,
                           int src_stride_y,
@@ -2663,7 +2661,6 @@ int I444AlphaToARGBMatrix(const uint8_t* src_y,
 }
 
 // Convert I420 with Alpha to ARGB.
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420AlphaToARGB(const uint8_t* src_y,
                     int src_stride_y,
@@ -2707,7 +2704,6 @@ int I420AlphaToABGR(const uint8_t* src_y,
 }
 
 // Convert I422 with Alpha to ARGB.
-#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422AlphaToARGB(const uint8_t* src_y,
                     int src_stride_y,
@@ -3186,7 +3182,6 @@ int I410AlphaToARGBMatrix(const uint16_t* src_y,
 }
 
 // Convert I400 to ARGB with matrix.
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I400ToARGBMatrix(const uint8_t* src_y,
                      int src_stride_y,
@@ -3357,8 +3352,9 @@ int J400ToARGB(const uint8_t* src_y,
   }
   return 0;
 }
-#if !defined(LIBYUV_AVIF_PROFILE)
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 #ifndef __riscv
 // Shuffle table for converting BGRA to ARGB.
 static const uvec8 kShuffleMaskBGRAToARGB = {
@@ -5390,7 +5386,6 @@ int NV12ToRGB565(const uint8_t* src_y,
 }
 
 // Convert I422 to RGBA with matrix.
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420ToRGBAMatrix(const uint8_t* src_y,
                      int src_stride_y,
@@ -5745,7 +5740,6 @@ int H420ToRAW(const uint8_t* src_y,
 }
 
 // Convert I422 to RGB24 with matrix.
-#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422ToRGB24Matrix(const uint8_t* src_y,
                       int src_stride_y,
@@ -6075,7 +6069,6 @@ int I420ToARGB4444(const uint8_t* src_y,
 }
 
 // Convert I420 to RGB565 with specified color matrix.
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420ToRGB565Matrix(const uint8_t* src_y,
                        int src_stride_y,
@@ -6219,7 +6212,6 @@ int H420ToRGB565(const uint8_t* src_y,
 }
 
 // Convert I422 to RGB565 with specified color matrix.
-#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I422ToRGB565Matrix(const uint8_t* src_y,
                        int src_stride_y,
@@ -6325,12 +6317,14 @@ int I422ToRGB565(const uint8_t* src_y,
                             src_stride_v, dst_rgb565, dst_stride_rgb565,
                             &kYuvI601Constants, width, height);
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Ordered 8x8 dither for 888 to 565.  Values from 0 to 7.
 static const uint8_t kDither565_4x4[16] = {
     0, 4, 1, 5, 6, 2, 7, 3, 1, 5, 0, 4, 7, 3, 6, 2,
 };
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 // Convert I420 to RGB565 with dithering.
 LIBYUV_API
 int I420ToRGB565Dither(const uint8_t* src_y,
@@ -6641,8 +6635,8 @@ int H420ToAB30(const uint8_t* src_y,
                           src_stride_u, dst_ab30, dst_stride_ab30,
                           &kYvuH709Constants, width, height);
 }
-
 #endif  // !defined(LIBYUV_AVIF_PROFILE)
+
 static int I420ToARGBMatrixBilinear(const uint8_t* src_y,
                                     int src_stride_y,
                                     const uint8_t* src_u,
@@ -6921,7 +6915,6 @@ static int I422ToARGBMatrixLinear(const uint8_t* src_y,
   return 0;
 }
 
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 static int I420ToRGB24MatrixBilinear(const uint8_t* src_y,
                                      int src_stride_y,
                                      const uint8_t* src_u,
@@ -7075,7 +7068,6 @@ static int I420ToRGB24MatrixBilinear(const uint8_t* src_y,
   return 0;
 }
 
-#if !defined(LIBYUV_AVIF_PROFILE)
 static int I010ToAR30MatrixBilinear(const uint16_t* src_y,
                                     int src_stride_y,
                                     const uint16_t* src_u,
@@ -7533,8 +7525,8 @@ static int I210ToARGBMatrixLinear(const uint16_t* src_y,
   free_aligned_buffer_64(row);
   return 0;
 }
-
 #endif  // !defined(LIBYUV_AVIF_PROFILE)
+
 static int I420AlphaToARGBMatrixBilinear(
     const uint8_t* src_y,
     int src_stride_y,
@@ -8860,8 +8852,8 @@ int I422ToRGB24MatrixFilter(const uint8_t* src_y,
 
   return -1;
 }
-
 #endif  // !defined(LIBYUV_AVIF_PROFILE)
+
 LIBYUV_API
 int I420ToARGBMatrixFilter(const uint8_t* src_y,
                            int src_stride_y,
@@ -8875,6 +8867,12 @@ int I420ToARGBMatrixFilter(const uint8_t* src_y,
                            int width,
                            int height,
                            enum FilterMode filter) {
+#if defined(LIBYUV_AVIF_PROFILE)
+  (void)filter;  // Android slim: always bilinear
+  return I420ToARGBMatrixBilinear(
+      src_y, src_stride_y, src_u, src_stride_u, src_v, src_stride_v,
+      dst_argb, dst_stride_argb, yuvconstants, width, height);
+#else
   switch (filter) {
     case kFilterNone:
       return I420ToARGBMatrix(src_y, src_stride_y, src_u, src_stride_u, src_v,
@@ -8891,6 +8889,7 @@ int I420ToARGBMatrixFilter(const uint8_t* src_y,
   }
 
   return -1;
+#endif
 }
 
 #if !defined(LIBYUV_AVIF_PROFILE)
@@ -8923,7 +8922,6 @@ int I422ToARGBMatrixFilter(const uint8_t* src_y,
   return -1;
 }
 
-#endif  // !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I420ToRGB24MatrixFilter(const uint8_t* src_y,
                             int src_stride_y,
@@ -8953,7 +8951,6 @@ int I420ToRGB24MatrixFilter(const uint8_t* src_y,
   return -1;
 }
 
-#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API
 int I010ToAR30MatrixFilter(const uint16_t* src_y,
                            int src_stride_y,
@@ -9069,8 +9066,8 @@ int I210ToARGBMatrixFilter(const uint16_t* src_y,
 
   return -1;
 }
-
 #endif  // !defined(LIBYUV_AVIF_PROFILE)
+
 LIBYUV_API
 int I420AlphaToARGBMatrixFilter(const uint8_t* src_y,
                                 int src_stride_y,
@@ -9087,6 +9084,13 @@ int I420AlphaToARGBMatrixFilter(const uint8_t* src_y,
                                 int height,
                                 int attenuate,
                                 enum FilterMode filter) {
+#if defined(LIBYUV_AVIF_PROFILE)
+  (void)filter;  // Android slim: always bilinear
+  return I420AlphaToARGBMatrixBilinear(
+      src_y, src_stride_y, src_u, src_stride_u, src_v, src_stride_v, src_a,
+      src_stride_a, dst_argb, dst_stride_argb, yuvconstants, width, height,
+      attenuate);
+#else
   switch (filter) {
     case kFilterNone:
       return I420AlphaToARGBMatrix(src_y, src_stride_y, src_u, src_stride_u,
@@ -9103,6 +9107,7 @@ int I420AlphaToARGBMatrixFilter(const uint8_t* src_y,
   }
 
   return -1;
+#endif
 }
 
 #if !defined(LIBYUV_AVIF_PROFILE)
@@ -9317,8 +9322,8 @@ int P210ToAR30MatrixFilter(const uint16_t* src_y,
 
   return -1;
 }
-
 #endif  // !defined(LIBYUV_AVIF_PROFILE)
+
 #ifdef __cplusplus
 }  // extern "C"
 }  // namespace libyuv

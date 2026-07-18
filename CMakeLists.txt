@@ -2,15 +2,14 @@
 # Originally created for "roxlu build system" to compile libyuv on windows
 # Run with -DUNIT_TEST=ON to build unit tests
 #
-# LIBYUV_AVIF_PROFILE=ON builds a decode-oriented subset for libavif Android:
-# 8-bit YUV420/YUV400 (+ alpha) YUV->RGB, ScalePlane, and ARGBAttenuate.
-# Encode, JPEG, compare, rotate, and non-planar scale paths are omitted.
+# LIBYUV_AVIF_PROFILE=ON builds a decode-oriented subset for libavif Android slim:
+# I420*MatrixFilter (bilinear), ARGBAttenuate, ScalePlane; drop encode/JPEG/compare/rotate.
 
 cmake_minimum_required( VERSION 3.16 )
 project ( YUV C CXX )	# "C" is required even for C++ projects
 option( UNIT_TEST "Built unit tests" OFF )
 option( LIBYUV_AVIF_PROFILE
-  "AVIF decode profile: 8-bit YUV420/400+alpha, ScalePlane; drop encode/JPEG/compare/rotate"
+  "AVIF slim decode: I420*MatrixFilter+ARGBAttenuate+ScalePlane; drop encode/JPEG/compare/rotate"
   ON )
 
 include(CheckCSourceCompiles)

@@ -3763,6 +3763,7 @@ int ARGBAttenuate(const uint8_t* src_argb,
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 // Convert preattentuated ARGB to unattenuated ARGB.
 LIBYUV_API
 int ARGBUnattenuate(const uint8_t* src_argb,
@@ -3815,8 +3816,6 @@ int ARGBUnattenuate(const uint8_t* src_argb,
   }
   return 0;
 }
-
-#if !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert ARGB to Grayed ARGB.
 LIBYUV_API
