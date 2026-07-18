@@ -18,7 +18,7 @@ Android NDK (`Android.mk`): `LIBYUV_AVIF_PROFILE=yes` (default).
 - 8-bit `I420*Matrix` / `I400*Matrix` / `I420Alpha*Matrix` (+ Filter / RGB24 / RGB565 / RGBA)
 - `YuvConstants` (BT.601/709/2020 limited and full, including JPEG full range)
 - `ScalePlane` (8-bit) for `avifImageScale`
-- `ARGBAttenuate` / related planar helpers still compiled; linker GC drops unused ones
+- `ARGBAttenuate` / `ARGBUnattenuate` / `CopyPlane` (other `planar_functions` APIs ifdef’d out)
 - NEON / NEON64 / SVE / SME (row+scale) kept for speed
 
 ## What is omitted

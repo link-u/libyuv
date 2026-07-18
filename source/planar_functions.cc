@@ -14,10 +14,14 @@
 #include <limits.h>
 #include <string.h>  // for memset()
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 #include "libyuv/convert_from_argb.h"  // For ArgbConstants
+#endif
 #include "libyuv/cpu_id.h"
 #include "libyuv/row.h"
+#if !defined(LIBYUV_AVIF_PROFILE)
 #include "libyuv/scale_row.h"  // for ScaleRowDown2
+#endif
 
 #ifdef __cplusplus
 namespace libyuv {
@@ -98,6 +102,8 @@ void CopyPlane(const uint8_t* src_y,
     dst_y += dst_stride_y;
   }
 }
+
+#if !defined(LIBYUV_AVIF_PROFILE)
 
 LIBYUV_API
 void CopyPlane_16(const uint16_t* src_y,
@@ -3662,6 +3668,8 @@ int ARGBRect(uint8_t* dst_argb,
   return 0;
 }
 
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
+
 // Convert unattentuated ARGB to preattenuated ARGB.
 // An unattenutated ARGB alpha blend uses the formula
 // p = a * f + (1 - a) * b
@@ -3807,6 +3815,8 @@ int ARGBUnattenuate(const uint8_t* src_argb,
   }
   return 0;
 }
+
+#if !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert ARGB to Grayed ARGB.
 LIBYUV_API
@@ -5780,6 +5790,8 @@ void HalfMergeUVPlane(const uint8_t* src_u,
     HalfMergeUVRow(src_u, 0, src_v, 0, dst_uv, width);
   }
 }
+
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #ifdef __cplusplus
 }  // extern "C"
