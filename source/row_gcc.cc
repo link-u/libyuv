@@ -641,7 +641,17 @@ void ARGB4444ToARGBRow_AVX2(const uint8_t* src, uint8_t* dst, int width) {
       :
       : "memory", "cc", "eax", "xmm0", "xmm1", "xmm2", "xmm3", "xmm4", "xmm5");
 }
-#endif
+#endif  // HAS_ARGB4444TOARGBROW_AVX2
+
+#endif  // HAS_RGB24TOARGBROW_SSSE3
+
+#if defined(HAS_ARGBTORGB24ROW_SSSE3) || defined(HAS_ARGBTORAWROW_SSSE3) ||   \
+    defined(HAS_ARGBTORGB24ROW_AVX2) ||                                      \
+    defined(HAS_ARGBTORGB24ROW_AVX512VBMI) || defined(HAS_ARGBTORAWROW_AVX2) || \
+    defined(HAS_ARGBTORGB565DITHERROW_AVX2)
+// ARGB→RGB24/RAW were historically nested under HAS_RGB24TOARGBROW_SSSE3.
+// Split so LIBYUV_AVIF_PROFILE can keep I422/I444→RGB24 (needs ARGBToRGB24
+// AVX2 composites) without enabling RGB24→ARGB.
 
 void ARGBToRGB24Row_SSSE3(const uint8_t* src, uint8_t* dst, int width) {
   asm volatile("movdqa      %3,%%xmm6                     \n"
@@ -908,7 +918,7 @@ void ARGBToRGB565DitherRow_AVX2(const uint8_t* src,
 }
 #endif  // HAS_ARGBTORGB565DITHERROW_AVX2
 
-#endif  // HAS_RGB24TOARGBROW_SSSE3
+#endif  // HAS_ARGBTORGB24ROW_* / HAS_ARGBTORAWROW_*
 
 /*
 
@@ -2301,6 +2311,7 @@ void ABGRToUVJRow_AVX512BW(const uint8_t* src_abgr,
 #endif  // HAS_ABGRTOUVJROW_AVX512BW
 #endif  // HAS_ARGBTOUVROW_AVX512BW
 
+#ifdef HAS_BGRATOYROW_SSSE3
 void BGRAToYRow_SSSE3(const uint8_t* src_bgra, uint8_t* dst_y, int width) {
   ARGBToYMatrixRow_SSSE3(src_bgra, dst_y, width, &kBgraI601Constants);
 }
@@ -2312,6 +2323,7 @@ void ABGRToYRow_SSSE3(const uint8_t* src_abgr, uint8_t* dst_y, int width) {
 void RGBAToYRow_SSSE3(const uint8_t* src_rgba, uint8_t* dst_y, int width) {
   ARGBToYMatrixRow_SSSE3(src_rgba, dst_y, width, &kRgbaI601Constants);
 }
+#endif  // HAS_BGRATOYROW_SSSE3
 
 #if defined(HAS_I422TOARGBROW_SSSE3) || defined(HAS_I422TOARGBROW_AVX2)
 
