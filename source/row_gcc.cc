@@ -48,7 +48,16 @@ static const uvec16 kSub128 = {0x8080u, 0x8080u, 0x8080u, 0x8080u,
 
 #endif  // defined(HAS_ARGBTOYROW_SSSE3) || defined(HAS_I422TOARGBROW_SSSE3)
 
-#ifdef HAS_RGB24TOARGBROW_SSSE3
+// Shuffle tables shared by RGB24/RAW/NV12/NV21/YUY2 paths. Include I422/I444
+// ToRGB24 so LIBYUV_AVIF_PROFILE (which undefs HAS_RGB24TOARGBROW_*) still
+// builds I422ToRGB24Row_SSSE3 / I444ToRGB24Row_SSSE3.
+#if defined(HAS_RGB24TOARGBROW_SSSE3) || defined(HAS_I422TORGB24ROW_SSSE3) || \
+    defined(HAS_I444TORGB24ROW_SSSE3) || defined(HAS_ARGBTORGB24ROW_SSSE3) || \
+    defined(HAS_NV12TOARGBROW_SSSE3) || defined(HAS_NV21TOARGBROW_SSSE3) || \
+    defined(HAS_YUY2TOARGBROW_SSSE3) || defined(HAS_UYVYTOARGBROW_SSSE3) || \
+    defined(HAS_RAWTOARGBROW_SSSE3) || defined(HAS_ARGBTORAWROW_SSSE3) || \
+    defined(HAS_RAWTORGB24ROW_SSSE3) || defined(HAS_NV12TORGB24ROW_SSSE3) || \
+    defined(HAS_NV21TORGB24ROW_SSSE3)
 
 // Shuffle table for converting RGB24 to ARGB.
 static const uvec8 kShuffleMaskRGB24ToARGB[2] = {
@@ -116,7 +125,7 @@ static const lvec8 kShuffleNV21 = {
     1, 0, 1, 0, 3, 2, 3, 2, 5, 4, 5, 4, 7, 6, 7, 6,
     1, 0, 1, 0, 3, 2, 3, 2, 5, 4, 5, 4, 7, 6, 7, 6,
 };
-#endif  // HAS_RGB24TOARGBROW_SSSE3
+#endif  // RGB24/I422/I444/NV/YUY2 shuffle tables
 
 #if defined(HAS_J400TOARGBROW_AVX2) || defined(HAS_J400TOARGBROW_AVX512BW)
 alignas(64) static const uint8_t kShuffleMaskJ400ToARGB[64] = {
