@@ -148,6 +148,7 @@ static void ScalePlaneDown2(int src_width,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScalePlaneDown2_16(int src_width,
                                int src_height,
                                int dst_width,
@@ -255,6 +256,7 @@ void ScalePlaneDown2_16To8(int src_width,
 // Scale plane, 1/4
 // This is an optimized version for scaling down a plane to 1/4 of
 // its original size.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 static void ScalePlaneDown4(int src_width,
                             int src_height,
@@ -328,6 +330,7 @@ static void ScalePlaneDown4(int src_width,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScalePlaneDown4_16(int src_width,
                                int src_height,
                                int dst_width,
@@ -372,6 +375,7 @@ static void ScalePlaneDown4_16(int src_width,
 }
 
 // Scale plane down, 3/4
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 static void ScalePlaneDown34(int src_width,
                              int src_height,
                              int dst_width,
@@ -499,6 +503,7 @@ static void ScalePlaneDown34(int src_width,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScalePlaneDown34_16(int src_width,
                                 int src_height,
                                 int dst_width,
@@ -584,6 +589,7 @@ static void ScalePlaneDown34_16(int src_width,
 // ggghhhii
 // ggghhhii
 // Boxes are 3x3, 2x3, 3x2 and 2x2
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 static void ScalePlaneDown38(int src_width,
                              int src_height,
@@ -705,6 +711,7 @@ static void ScalePlaneDown38(int src_width,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScalePlaneDown38_16(int src_width,
                                 int src_height,
                                 int dst_width,
@@ -775,6 +782,7 @@ static void ScalePlaneDown38_16(int src_width,
     ScaleRowDown38_3(src_ptr, 0, dst_ptr, dst_width);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #define MIN1(x) ((x) < 1 ? 1 : (x))
 
@@ -788,6 +796,7 @@ static __inline uint32_t SumPixels(int iboxwidth, const uint16_t* src_ptr) {
   return sum;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static __inline uint32_t SumPixels_16(int iboxwidth, const uint32_t* src_ptr) {
   uint32_t sum = 0u;
   int x;
@@ -797,6 +806,7 @@ static __inline uint32_t SumPixels_16(int iboxwidth, const uint32_t* src_ptr) {
   }
   return sum;
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 static void ScaleAddCols2_C(int dst_width,
                             int boxheight,
@@ -822,6 +832,7 @@ static void ScaleAddCols2_C(int dst_width,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScaleAddCols2_16_C(int dst_width,
                                int boxheight,
                                int x,
@@ -844,6 +855,7 @@ static void ScaleAddCols2_16_C(int dst_width,
         SumPixels_16(boxwidth, src_ptr + ix) * scaletbl[scaletbl_index] >> 16;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 static void ScaleAddCols0_C(int dst_width,
                             int boxheight,
@@ -876,6 +888,7 @@ static void ScaleAddCols1_C(int dst_width,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScaleAddCols1_16_C(int dst_width,
                                int boxheight,
                                int x,
@@ -898,6 +911,7 @@ static void ScaleAddCols1_16_C(int dst_width,
 // one pixel of destination using fixed point (16.16) to step
 // through source, sampling a box of pixel with simple
 // averaging.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 static int ScalePlaneBox(int src_width,
                          int src_height,
                          int dst_width,
@@ -987,6 +1001,7 @@ static int ScalePlaneBox(int src_width,
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static int ScalePlaneBox_16(int src_width,
                             int src_height,
                             int dst_width,
@@ -1045,6 +1060,7 @@ static int ScalePlaneBox_16(int src_width,
 }
 
 // Scale plane down with bilinear interpolation.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 static int ScalePlaneBilinearDown(int src_width,
                                   int src_height,
                                   int dst_width,
@@ -1157,6 +1173,7 @@ static int ScalePlaneBilinearDown(int src_width,
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static int ScalePlaneBilinearDown_16(int src_width,
                                      int src_height,
                                      int dst_width,
@@ -1249,6 +1266,7 @@ static int ScalePlaneBilinearDown_16(int src_width,
 }
 
 // Scale up down with bilinear interpolation.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 static int ScalePlaneBilinearUp(int src_width,
                                 int src_height,
                                 int dst_width,
@@ -1529,6 +1547,7 @@ static void ScalePlaneUp2_Bilinear(int src_width,
 // its original width, using linear interpolation.
 // stride is in count of uint16_t.
 // This is used to scale U and V planes of I210 to I410 and I212 to I412.
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScalePlaneUp2_12_Linear(int src_width,
                                     int src_height,
                                     int dst_width,
@@ -1863,6 +1882,7 @@ static int ScalePlaneBilinearUp_16(int src_width,
 // Fixed point math is used for performance: The upper 16 bits
 // of x and dx is the integer part of the source position and
 // the lower 16 bits are the fixed decimal part.
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 static void ScalePlaneSimple(int src_width,
                              int src_height,
@@ -1900,6 +1920,7 @@ static void ScalePlaneSimple(int src_width,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale.cc AVIF 16bit helpers
 static void ScalePlaneSimple_16(int src_width,
                                 int src_height,
                                 int dst_width,
@@ -1939,6 +1960,7 @@ static void ScalePlaneSimple_16(int src_width,
 // Scale a plane.
 // This function dispatches to a specialized scaler based on scale factor.
 LIBYUV_API
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 int ScalePlane(const uint8_t* src,
                int src_stride,
                int src_width,
@@ -2045,6 +2067,33 @@ int ScalePlane(const uint8_t* src,
                    dst_stride, src, dst);
   return 0;
 }
+
+
+#if defined(LIBYUV_AVIF_PROFILE)
+// Stub for libavif src/scale.c which references ScalePlane_12 unconditionally.
+// 8-bit-only AVIF builds never execute the depth>8 path at runtime.
+LIBYUV_API
+int ScalePlane_12(const uint16_t* src,
+                  int src_stride,
+                  int src_width,
+                  int src_height,
+                  uint16_t* dst,
+                  int dst_stride,
+                  int dst_width,
+                  int dst_height,
+                  enum FilterMode filtering) {
+  (void)src;
+  (void)src_stride;
+  (void)src_width;
+  (void)src_height;
+  (void)dst;
+  (void)dst_stride;
+  (void)dst_width;
+  (void)dst_height;
+  (void)filtering;
+  return -1;
+}
+#endif
 
 #if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API

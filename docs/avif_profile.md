@@ -42,18 +42,25 @@ the final `libavif_android.so` can GC leftovers after libavif LUT trimming.
 - JPEG / MJPEG, compare, rotate
 - RGB→YUV encode paths (`convert.cc`, `convert_from*`, …)
 - `scale_argb` / `scale_rgb` / `scale_uv`
-- `ScalePlane_16` / `ScalePlane_12` / `I420Scale*`
+- `ScalePlane_16` / `I420Scale*` ( `ScalePlane_12` is a `-1` stub for libavif link )
 - 10/12-bit and 422/444 / NV12 convert APIs (ifdef’d in `convert_argb.cc`)
 - Unused row/scale SIMD and C kernels (via `HAS_*` undef + source guards)
 
-## Required libavif changes
+## Link notes for libavif
 
-`reformat_libyuv.c` keeps function pointers for I422/I444/10-bit in LUTs. Those references prevent `--gc-sections` from dropping symbols. For the size win:
+`src/scale.c` always references `ScalePlane_12` (for `depth > 8`). This profile
+provides a stub that returns `-1`. For 8-bit-only Android builds that is fine.
 
-1. Narrow YUV→RGB LUTs to 8-bit YUV420 / YUV400 (+ alpha) only; set other entries to `NULL` or shrink tables.
-2. Remove or disable RGB→YUV encode tables if encode is unused.
-3. Keep `ARGBAttenuate` / `ARGBUnattenuate` for premultiplied alpha.
-4. Keep `avifImageScale` → `ScalePlane` for Bitmap size mismatches (Android JNI).
-5. Point `AVIF_LIBYUV=LOCAL` at this tree.
+Optional libavif-side cleanup (not required to link):
+
+1. In `src/scale.c`, `#if` out the `depth > 8` / `ScalePlane_12` branches when
+   building against this libyuv profile.
+2. Narrow `reformat_libyuv.c` LUTs to 8-bit YUV420/400 (+ alpha) so LTO/GC can
+   drop more convert kernels. Those LUT function pointers otherwise keep I422/
+   I444/10-bit convert symbols alive under `--gc-sections`.
+3. Remove or disable RGB→YUV encode tables if encode is unused.
+4. Keep `ARGBAttenuate` / `ARGBUnattenuate` for premultiplied alpha.
+5. Keep `avifImageScale` → `ScalePlane` for Bitmap size mismatches (Android JNI).
+6. Point `AVIF_LIBYUV=LOCAL` at this tree (`link-u/libyuv` `avif` branch).
 
 Unsupported formats then fall back to libavif’s C conversion path.

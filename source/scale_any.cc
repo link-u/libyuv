@@ -591,11 +591,13 @@ SUH2LANY(ScaleRowUp2_Linear_Any_C,
          0,
          uint8_t)
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_any AVIF profile
 SUH2LANY(ScaleRowUp2_Linear_16_Any_C,
          ScaleRowUp2_Linear_16_C,
          ScaleRowUp2_Linear_16_C,
          0,
          uint16_t)
+#endif
 
 #ifdef HAS_SCALEROWUP2_LINEAR_SSE2
 SUH2LANY(ScaleRowUp2_Linear_Any_SSE2,
@@ -719,11 +721,13 @@ SU2BLANY(ScaleRowUp2_Bilinear_Any_C,
          0,
          uint8_t)
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_any AVIF profile
 SU2BLANY(ScaleRowUp2_Bilinear_16_Any_C,
          ScaleRowUp2_Bilinear_16_C,
          ScaleRowUp2_Bilinear_16_C,
          0,
          uint16_t)
+#endif
 
 #ifdef HAS_SCALEROWUP2_BILINEAR_SSE2
 SU2BLANY(ScaleRowUp2_Bilinear_Any_SSE2,
@@ -825,6 +829,7 @@ SU2BLANY(ScaleRowUp2_Bilinear_16_Any_NEON,
     dst_ptr[2 * dst_width - 1] = src_ptr[((dst_width + 1) & ~1) - 1]; \
   }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_any AVIF profile
 SBUH2LANY(ScaleUVRowUp2_Linear_Any_C,
           ScaleUVRowUp2_Linear_C,
           ScaleUVRowUp2_Linear_C,
@@ -836,6 +841,7 @@ SBUH2LANY(ScaleUVRowUp2_Linear_16_Any_C,
           ScaleUVRowUp2_Linear_16_C,
           0,
           uint16_t)
+#endif
 
 #ifdef HAS_SCALEUVROWUP2_LINEAR_SSSE3
 SBUH2LANY(ScaleUVRowUp2_Linear_Any_SSSE3,
@@ -923,6 +929,7 @@ SBUH2LANY(ScaleUVRowUp2_Linear_16_Any_NEON,
                             2;                                          \
   }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_any AVIF profile
 SBU2BLANY(ScaleUVRowUp2_Bilinear_Any_C,
           ScaleUVRowUp2_Bilinear_C,
           ScaleUVRowUp2_Bilinear_C,
@@ -934,6 +941,7 @@ SBU2BLANY(ScaleUVRowUp2_Bilinear_16_Any_C,
           ScaleUVRowUp2_Bilinear_16_C,
           0,
           uint16_t)
+#endif
 
 #ifdef HAS_SCALEUVROWUP2_BILINEAR_SSSE3
 SBU2BLANY(ScaleUVRowUp2_Bilinear_Any_SSSE3,
