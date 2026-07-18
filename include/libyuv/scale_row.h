@@ -196,6 +196,9 @@ extern "C" {
 #endif
 #endif
 
+// Under LIBYUV_AVIF_PROFILE, drop unused scale HAS_*.
+#include "libyuv/avif_profile_undef_scale_has.h"
+
 // Scale ARGB vertically with bilinear interpolation.
 void ScalePlaneVertical(int src_height,
                         int dst_width,

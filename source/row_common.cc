@@ -107,6 +107,7 @@ static inline void WRITEWORD(uint8_t* p, uint32_t v) {
 }
 #endif
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGB24ToARGBRow_C(const uint8_t* src_rgb24, uint8_t* dst_argb, int width) {
   int x;
   for (x = 0; x < width; ++x) {
@@ -378,6 +379,7 @@ void ARGBToRGB565Row_C(const uint8_t* src_argb, uint8_t* dst_rgb, int width) {
     *(uint16_t*)(dst_rgb) = STATIC_CAST(uint16_t, b0 | (g0 << 5) | (r0 << 11));
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // dither4 is a row of 4 values from 4x4 dither matrix.
 // The 4x4 matrix contains values to increase RGB.  When converting to
@@ -387,6 +389,7 @@ void ARGBToRGB565Row_C(const uint8_t* src_argb, uint8_t* dst_rgb, int width) {
 // endian will not affect order of the original matrix.  But the dither4
 // will containing the first pixel in the lower byte for little endian
 // or the upper byte for big endian.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBToRGB565DitherRow_C(const uint8_t* src_argb,
                              uint8_t* dst_rgb,
                              uint32_t dither4,
@@ -580,8 +583,10 @@ void AR64ToAB64Row_C(const uint16_t* src_ar64, uint16_t* dst_ab64, int width) {
     src_ar64 += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // TODO(fbarchard): Make shuffle compatible with SIMD versions
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void AR64ShuffleRow_C(const uint8_t* src_ar64,
                       uint8_t* dst_ar64,
                       const uint8_t* shuffler,
@@ -608,6 +613,7 @@ void AR64ShuffleRow_C(const uint8_t* src_ar64,
     dst_ar64_16 += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 // BT601 8 bit Y:
 // b 0.114 * 219 = 24.966  = 25
 // g 0.587 * 219 = 128.553 = 129
@@ -777,6 +783,7 @@ static __inline uint8_t RGBToVMatrix(uint8_t b0,
          8;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBToYMatrixRow_C(const uint8_t* src_argb,
                         uint8_t* dst_y,
                         int width,
@@ -1147,8 +1154,10 @@ void ARGBGrayRow_C(const uint8_t* src_argb, uint8_t* dst_argb, int width) {
     src_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert a row of image to Sepia tone.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBSepiaRow_C(uint8_t* dst_argb, int width) {
   int x;
   for (x = 0; x < width; ++x) {
@@ -1165,9 +1174,11 @@ void ARGBSepiaRow_C(uint8_t* dst_argb, int width) {
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Apply color matrix to a row of image. Matrix is signed.
 // TODO(fbarchard): Consider adding rounding (+32).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBColorMatrixRow_C(const uint8_t* src_argb,
                           uint8_t* dst_argb,
                           const int8_t* matrix_argb,
@@ -1198,8 +1209,10 @@ void ARGBColorMatrixRow_C(const uint8_t* src_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Apply color table to a row of image.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBColorTableRow_C(uint8_t* dst_argb,
                          const uint8_t* table_argb,
                          int width) {
@@ -1216,8 +1229,10 @@ void ARGBColorTableRow_C(uint8_t* dst_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Apply color table to a row of image.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGBColorTableRow_C(uint8_t* dst_argb,
                         const uint8_t* table_argb,
                         int width) {
@@ -1252,10 +1267,12 @@ void ARGBQuantizeRow_C(uint8_t* dst_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #define REPEAT8(v) (v) | ((v) << 8)
 #define SHADE(f, v) v* f >> 24
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBShadeRow_C(const uint8_t* src_argb,
                     uint8_t* dst_argb,
                     int width,
@@ -1279,9 +1296,11 @@ void ARGBShadeRow_C(const uint8_t* src_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #undef REPEAT8
 #undef SHADE
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBMultiplyRow_C(const uint8_t* src_argb,
                        const uint8_t* src_argb1,
                        uint8_t* dst_argb,
@@ -1305,9 +1324,11 @@ void ARGBMultiplyRow_C(const uint8_t* src_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #define SHADE(f, v) clamp255(v + f)
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBAddRow_C(const uint8_t* src_argb,
                   const uint8_t* src_argb1,
                   uint8_t* dst_argb,
@@ -1331,10 +1352,12 @@ void ARGBAddRow_C(const uint8_t* src_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #undef SHADE
 
 #define SHADE(f, v) clamp0(f - v)
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBSubtractRow_C(const uint8_t* src_argb,
                        const uint8_t* src_argb1,
                        uint8_t* dst_argb,
@@ -1358,9 +1381,11 @@ void ARGBSubtractRow_C(const uint8_t* src_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #undef SHADE
 
 // Sobel functions which mimics SSSE3.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void SobelXRow_C(const uint8_t* src_y0,
                  const uint8_t* src_y1,
                  const uint8_t* src_y2,
@@ -1448,6 +1473,7 @@ void SobelXYRow_C(const uint8_t* src_sobelx,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void J400ToARGBRow_C(const uint8_t* src_y, uint8_t* dst_argb, int width) {
   // Copy a Y to RGB.
@@ -2046,6 +2072,7 @@ void I422ToARGBRow_C(const uint8_t* src_y,
 }
 
 // 10 bit YUV to ARGB
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I210ToARGBRow_C(const uint16_t* src_y,
                      const uint16_t* src_u,
                      const uint16_t* src_v,
@@ -2137,8 +2164,10 @@ void I410AlphaToARGBRow_C(const uint16_t* src_y,
     rgb_buf += 4;  // Advance 1 pixels.
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // 12 bit YUV to ARGB
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I212ToARGBRow_C(const uint16_t* src_y,
                      const uint16_t* src_u,
                      const uint16_t* src_v,
@@ -2164,6 +2193,7 @@ void I212ToARGBRow_C(const uint16_t* src_y,
     rgb_buf[3] = 255;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 static void StoreAR30(uint8_t* rgb_buf, int b, int g, int r) {
   uint32_t ar30;
@@ -2178,6 +2208,7 @@ static void StoreAR30(uint8_t* rgb_buf, int b, int g, int r) {
 }
 
 // 10 bit YUV to 10 bit AR30
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I210ToAR30Row_C(const uint16_t* src_y,
                      const uint16_t* src_u,
                      const uint16_t* src_v,
@@ -2203,8 +2234,10 @@ void I210ToAR30Row_C(const uint16_t* src_y,
     StoreAR30(rgb_buf, b, g, r);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // 12 bit YUV to 10 bit AR30
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I212ToAR30Row_C(const uint16_t* src_y,
                      const uint16_t* src_u,
                      const uint16_t* src_v,
@@ -2250,8 +2283,10 @@ void I410ToAR30Row_C(const uint16_t* src_y,
     rgb_buf += 4;  // Advance 1 pixel.
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // P210 has 10 bits in msb of 16 bit NV12 style layout.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void P210ToARGBRow_C(const uint16_t* src_y,
                      const uint16_t* src_uv,
                      uint8_t* dst_argb,
@@ -2333,9 +2368,11 @@ void P410ToAR30Row_C(const uint16_t* src_y,
     dst_ar30 += 4;  // Advance 1 pixel.
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // 8 bit YUV to 10 bit AR30
 // Uses same code as 10 bit YUV bit shifts the 8 bit values up to 10 bits.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I422ToAR30Row_C(const uint8_t* src_y,
                      const uint8_t* src_u,
                      const uint8_t* src_v,
@@ -2361,6 +2398,7 @@ void I422ToAR30Row_C(const uint8_t* src_y,
     StoreAR30(rgb_buf, b, g, r);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void I444AlphaToARGBRow_C(const uint8_t* src_y,
                           const uint8_t* src_u,
@@ -2433,6 +2471,7 @@ void I422ToRGB24Row_C(const uint8_t* src_y,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I422ToARGB4444Row_C(const uint8_t* src_y,
                          const uint8_t* src_u,
                          const uint8_t* src_v,
@@ -2514,6 +2553,7 @@ void I422ToARGB1555Row_C(const uint8_t* src_y,
         STATIC_CAST(uint16_t, b0 | (g0 << 5) | (r0 << 10) | 0x8000);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void I422ToRGB565Row_C(const uint8_t* src_y,
                        const uint8_t* src_u,
@@ -2556,6 +2596,7 @@ void I422ToRGB565Row_C(const uint8_t* src_y,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void NV12ToARGBRow_C(const uint8_t* src_y,
                      const uint8_t* src_uv,
                      uint8_t* rgb_buf,
@@ -2731,6 +2772,7 @@ void UYVYToARGBRow_C(const uint8_t* src_uyvy,
     rgb_buf[3] = 255;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void I422ToRGBARow_C(const uint8_t* src_y,
                      const uint8_t* src_u,
@@ -2777,6 +2819,7 @@ void I400ToARGBRow_C(const uint8_t* src_y,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void MirrorRow_C(const uint8_t* src, uint8_t* dst, int width) {
   int x;
   src += width - 1;
@@ -2966,6 +3009,7 @@ void DetileToYUY2_C(const uint8_t* src_y,
     src_uv += src_uv_tile_stride - 16;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Unpack MT2T into tiled P010 64 pixels at a time. MT2T's bitstream is encoded
 // in 80 byte blocks representing 64 pixels each. The first 16 bytes of the
@@ -2973,6 +3017,7 @@ void DetileToYUY2_C(const uint8_t* src_y,
 // next 64 bytes represent all the upper 8 bits of the pixel. The lower bits are
 // packed into 1x4 blocks, whereas the upper bits are packed in normal raster
 // order.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void UnpackMT2T_C(const uint8_t* src, uint16_t* dst, size_t size) {
   for (size_t i = 0; i < size; i += 80) {
     const uint8_t* src_lower_bits = src;
@@ -3178,8 +3223,10 @@ void MergeXRGBRow_C(const uint8_t* src_r,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert lsb formats to msb, depending on sample depth.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void MergeUVRow_16_C(const uint16_t* src_u,
                      const uint16_t* src_v,
                      uint16_t* dst_uv,
@@ -3195,8 +3242,10 @@ void MergeUVRow_16_C(const uint16_t* src_u,
     dst_uv += 2;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert msb formats to lsb, depending on sample depth.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void SplitUVRow_16_C(const uint16_t* src_uv,
                      uint16_t* dst_u,
                      uint16_t* dst_v,
@@ -3232,6 +3281,7 @@ void DivideRow_16_C(const uint16_t* src_y,
     dst_y[x] = (src_y[x] * scale) >> 16;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Use scale to convert lsb formats to msb, depending how many bits there are:
 // 32768 = 9 bits
@@ -3241,6 +3291,7 @@ void DivideRow_16_C(const uint16_t* src_y,
 // TODO(fbarchard): change scale to bits
 #define C16TO8(v, scale) clamp255(((v) * (scale)) >> 16)
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void Convert16To8Row_C(const uint16_t* src_y,
                        uint8_t* dst_y,
                        int scale,
@@ -3253,9 +3304,11 @@ void Convert16To8Row_C(const uint16_t* src_y,
     dst_y[x] = STATIC_CAST(uint8_t, C16TO8(src_y[x], scale));
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Use scale to convert lsb formats to msb, depending how many bits there are:
 // 1024 = 10 bits
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void Convert8To16Row_C(const uint8_t* src_y,
                        uint16_t* dst_y,
                        int scale,
@@ -3266,11 +3319,13 @@ void Convert8To16Row_C(const uint8_t* src_y,
     dst_y[x] = (src_y[x] * scale) >> 16;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Use scale to convert J420 to I420
 // scale parameter is 8.8 fixed point but limited to 0 to 255
 // Function is based on DivideRow, but adds a bias
 // Does not clamp
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void Convert8To8Row_C(const uint8_t* src_y,
                       uint8_t* dst_y,
                       int scale,
@@ -3284,6 +3339,7 @@ void Convert8To8Row_C(const uint8_t* src_y,
     dst_y[x] = ((src_y[x] * scale) >> 8) + bias;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void CopyRow_C(const uint8_t* src, uint8_t* dst, int count) {
   memcpy(dst, src, count);
@@ -3293,6 +3349,7 @@ void CopyRow_16_C(const uint16_t* src, uint16_t* dst, int count) {
   memcpy(dst, src, count * 2);
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void SetRow_C(uint8_t* dst, uint8_t v8, int width) {
   memset(dst, v8, width);
 }
@@ -3303,8 +3360,10 @@ void ARGBSetRow_C(uint8_t* dst_argb, uint32_t v32, int width) {
     memcpy(dst_argb + x * sizeof v32, &v32, sizeof v32);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Filter 2 rows of YUY2 UV's (422) into U and V (420).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void YUY2ToUVRow_C(const uint8_t* src_yuy2,
                    int src_stride_yuy2,
                    uint8_t* dst_u,
@@ -3320,8 +3379,10 @@ void YUY2ToUVRow_C(const uint8_t* src_yuy2,
     dst_v += 1;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Filter 2 rows of YUY2 UV's (422) into UV (NV12).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void YUY2ToNVUVRow_C(const uint8_t* src_yuy2,
                      int src_stride_yuy2,
                      uint8_t* dst_uv,
@@ -3335,8 +3396,10 @@ void YUY2ToNVUVRow_C(const uint8_t* src_yuy2,
     dst_uv += 2;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Copy row of YUY2 UV's (422) into U and V (422).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void YUY2ToUV422Row_C(const uint8_t* src_yuy2,
                       uint8_t* dst_u,
                       uint8_t* dst_v,
@@ -3351,8 +3414,10 @@ void YUY2ToUV422Row_C(const uint8_t* src_yuy2,
     dst_v += 1;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Copy row of YUY2 Y's (422) into Y (420/422).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void YUY2ToYRow_C(const uint8_t* src_yuy2, uint8_t* dst_y, int width) {
   // Output a row of Y values.
   int x;
@@ -3365,8 +3430,10 @@ void YUY2ToYRow_C(const uint8_t* src_yuy2, uint8_t* dst_y, int width) {
     dst_y[width - 1] = src_yuy2[0];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Filter 2 rows of UYVY UV's (422) into U and V (420).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void UYVYToUVRow_C(const uint8_t* src_uyvy,
                    int src_stride_uyvy,
                    uint8_t* dst_u,
@@ -3382,8 +3449,10 @@ void UYVYToUVRow_C(const uint8_t* src_uyvy,
     dst_v += 1;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Copy row of UYVY UV's (422) into U and V (422).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void UYVYToUV422Row_C(const uint8_t* src_uyvy,
                       uint8_t* dst_u,
                       uint8_t* dst_v,
@@ -3398,8 +3467,10 @@ void UYVYToUV422Row_C(const uint8_t* src_uyvy,
     dst_v += 1;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Copy row of UYVY Y's (422) into Y (420/422).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void UYVYToYRow_C(const uint8_t* src_uyvy, uint8_t* dst_y, int width) {
   // Output a row of Y values.
   int x;
@@ -3412,12 +3483,14 @@ void UYVYToYRow_C(const uint8_t* src_uyvy, uint8_t* dst_y, int width) {
     dst_y[width - 1] = src_uyvy[1];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #define BLEND(f, b, a) clamp255((((256 - a) * b) >> 8) + f)
 
 // Blend src_argb over src_argb1 and store to dst_argb.
 // dst_argb may be src_argb or src_argb1.
 // This code mimics the SSSE3 version for better testability.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBBlendRow_C(const uint8_t* src_argb,
                     const uint8_t* src_argb1,
                     uint8_t* dst_argb,
@@ -3466,9 +3539,11 @@ void ARGBBlendRow_C(const uint8_t* src_argb,
     dst_argb[3] = 255u;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #undef BLEND
 
 #define UBLEND(f, b, a) (((a) * f) + ((255 - a) * b) + 255) >> 8
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void BlendPlaneRow_C(const uint8_t* src0,
                      const uint8_t* src1,
                      const uint8_t* alpha,
@@ -3487,6 +3562,7 @@ void BlendPlaneRow_C(const uint8_t* src0,
     dst[0] = UBLEND(src0[0], src1[0], alpha[0]);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #undef UBLEND
 
 #define ATTENUATE(f, a) (f * a + 255) >> 8
@@ -3600,6 +3676,7 @@ void ARGBUnattenuateRow_C(const uint8_t* src_argb,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ComputeCumulativeSumRow_C(const uint8_t* row,
                                int32_t* cumsum,
                                const int32_t* previous_cumsum,
@@ -3647,9 +3724,11 @@ void CumulativeSumToAverageRow_C(const int32_t* tl,
     bl += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Copy pixels from rotated source to destination row with a slope.
 LIBYUV_API
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBAffineRow_C(const uint8_t* src_argb,
                      int src_argb_stride,
                      uint8_t* dst_argb,
@@ -3671,6 +3750,7 @@ void ARGBAffineRow_C(const uint8_t* src_argb,
     uv[1] += uv_dudv[3];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Blend 2 rows into 1.
 static void HalfRow_C(const uint8_t* src_uv,
@@ -3738,6 +3818,7 @@ void InterpolateRow_C(uint8_t* dst_ptr,
 }
 
 // C version 2x2 -> 2x1.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void InterpolateRow_16_C(uint16_t* dst_ptr,
                          const uint16_t* src_ptr,
                          ptrdiff_t src_stride,
@@ -3767,6 +3848,7 @@ void InterpolateRow_16_C(uint16_t* dst_ptr,
     ++dst_ptr;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // C version 2x2 16 bit-> 2x1 8 bit.
 // Use scale to convert lsb formats to msb, depending how many bits there are:
@@ -3776,6 +3858,7 @@ void InterpolateRow_16_C(uint16_t* dst_ptr,
 // 256 = 16 bits
 // TODO(fbarchard): change scale to bits
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void InterpolateRow_16To8_C(uint8_t* dst_ptr,
                             const uint16_t* src_ptr,
                             ptrdiff_t src_stride,
@@ -3808,8 +3891,10 @@ void InterpolateRow_16To8_C(uint8_t* dst_ptr,
     dst_ptr += 1;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Use first 4 shuffler values to reorder ARGB channels.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGBShuffleRow_C(const uint8_t* src_argb,
                       uint8_t* dst_argb,
                       const uint8_t* shuffler,
@@ -3922,6 +4007,7 @@ void ARGBPolynomialRow_C(const uint8_t* src_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Samples assumed to be unsigned in low 9, 10 or 12 bits.  Scale factor
 // adjust the source integer range to the half float range desired.
@@ -3940,6 +4026,7 @@ typedef uint32_t __attribute__((__may_alias__)) uint32_alias_t;
 typedef uint32_t uint32_alias_t;
 #endif
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void HalfFloatRow_C(const uint16_t* src,
                     uint16_t* dst,
                     float scale,
@@ -4040,6 +4127,7 @@ void ARGBCopyYToAlphaRow_C(const uint8_t* src, uint8_t* dst, int width) {
     dst[3] = src[0];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Maximum temporary width for wrappers to process at a time, in pixels.
 #define MAXTWIDTH 2048
@@ -4068,6 +4156,7 @@ void I422ToRGB565Row_SSSE3(const uint8_t* src_y,
 #endif
 
 #if defined(HAS_I422TOARGB1555ROW_SSSE3)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I422ToARGB1555Row_SSSE3(const uint8_t* src_y,
                              const uint8_t* src_u,
                              const uint8_t* src_v,
@@ -4087,9 +4176,11 @@ void I422ToARGB1555Row_SSSE3(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_I422TOARGB4444ROW_SSSE3)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I422ToARGB4444Row_SSSE3(const uint8_t* src_y,
                              const uint8_t* src_u,
                              const uint8_t* src_v,
@@ -4109,9 +4200,11 @@ void I422ToARGB4444Row_SSSE3(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_NV12TORGB565ROW_SSSE3)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void NV12ToRGB565Row_SSSE3(const uint8_t* src_y,
                            const uint8_t* src_uv,
                            uint8_t* dst_rgb565,
@@ -4129,9 +4222,11 @@ void NV12ToRGB565Row_SSSE3(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_NV12TORGB24ROW_SSSE3)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void NV12ToRGB24Row_SSSE3(const uint8_t* src_y,
                           const uint8_t* src_uv,
                           uint8_t* dst_rgb24,
@@ -4149,9 +4244,11 @@ void NV12ToRGB24Row_SSSE3(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_NV21TORGB24ROW_SSSE3)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void NV21ToRGB24Row_SSSE3(const uint8_t* src_y,
                           const uint8_t* src_vu,
                           uint8_t* dst_rgb24,
@@ -4169,9 +4266,11 @@ void NV21ToRGB24Row_SSSE3(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_NV12TOARGBROW_AVX2) && defined(HAS_ARGBTORGB24ROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void NV12ToRGB24Row_AVX2(const uint8_t* src_y,
                          const uint8_t* src_uv,
                          uint8_t* dst_rgb24,
@@ -4189,9 +4288,11 @@ void NV12ToRGB24Row_AVX2(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_NV21TOARGBROW_AVX2) && defined(HAS_ARGBTORGB24ROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void NV21ToRGB24Row_AVX2(const uint8_t* src_y,
                          const uint8_t* src_vu,
                          uint8_t* dst_rgb24,
@@ -4209,6 +4310,7 @@ void NV21ToRGB24Row_AVX2(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_I422TOARGBROW_AVX2) && defined(HAS_ARGBTORGB565ROW_AVX2)
@@ -4233,6 +4335,7 @@ void I422ToRGB565Row_AVX2(const uint8_t* src_y,
 #endif
 
 #if defined(HAS_I422TOARGBROW_AVX2) && defined(HAS_ARGBTOARGB1555ROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I422ToARGB1555Row_AVX2(const uint8_t* src_y,
                             const uint8_t* src_u,
                             const uint8_t* src_v,
@@ -4252,9 +4355,11 @@ void I422ToARGB1555Row_AVX2(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_I422TOARGBROW_AVX2) && defined(HAS_ARGBTOARGB4444ROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void I422ToARGB4444Row_AVX2(const uint8_t* src_y,
                             const uint8_t* src_u,
                             const uint8_t* src_v,
@@ -4274,6 +4379,7 @@ void I422ToARGB4444Row_AVX2(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_I422TOARGBROW_AVX2) && defined(HAS_ARGBTORGB24ROW_AVX2)
@@ -4365,6 +4471,7 @@ void I444ToRGB24Row_AVX2(const uint8_t* src_y,
 #endif
 
 #if defined(HAS_NV12TOARGBROW_AVX2) && defined(HAS_ARGBTORGB565ROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void NV12ToRGB565Row_AVX2(const uint8_t* src_y,
                           const uint8_t* src_uv,
                           uint8_t* dst_rgb565,
@@ -4382,9 +4489,11 @@ void NV12ToRGB565Row_AVX2(const uint8_t* src_y,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #ifdef HAS_INTERPOLATEROW_16TO8_AVX2
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void InterpolateRow_16To8_AVX2(uint8_t* dst_ptr,
                                const uint16_t* src_ptr,
                                ptrdiff_t src_stride,
@@ -4402,6 +4511,7 @@ void InterpolateRow_16To8_AVX2(uint8_t* dst_ptr,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif  // HAS_INTERPOLATEROW_16TO8_AVX2
 
 float ScaleSumSamples_C(const float* src, float* dst, float scale, int width) {
@@ -4427,6 +4537,7 @@ float ScaleMaxSamples_C(const float* src, float* dst, float scale, int width) {
   return fmax;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ScaleSamples_C(const float* src, float* dst, float scale, int width) {
   int i;
   for (i = 0; i < width; ++i) {
@@ -4443,8 +4554,10 @@ void GaussRow_C(const uint32_t* src, uint16_t* dst, int width) {
     ++src;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // filter 5 rows with 1, 4, 6, 4, 1 coefficients to produce 1 row.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void GaussCol_C(const uint16_t* src0,
                 const uint16_t* src1,
                 const uint16_t* src2,
@@ -4466,8 +4579,10 @@ void GaussRow_F32_C(const float* src, float* dst, int width) {
     ++src;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // filter 5 rows with 1, 4, 6, 4, 1 coefficients to produce 1 row.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void GaussCol_F32_C(const float* src0,
                     const float* src1,
                     const float* src2,
@@ -4480,8 +4595,10 @@ void GaussCol_F32_C(const float* src0,
     *dst++ = *src0++ + *src1++ * 4 + *src2++ * 6 + *src3++ * 4 + *src4++;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert biplanar NV21 to packed YUV24
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void NV21ToYUV24Row_C(const uint8_t* src_y,
                       const uint8_t* src_vu,
                       uint8_t* dst_yuv24,
@@ -4504,9 +4621,11 @@ void NV21ToYUV24Row_C(const uint8_t* src_y,
     dst_yuv24[2] = src_y[0];   // Y0
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Filter 2 rows of AYUV UV's (444) into UV (420).
 // AYUV is VUYA in memory.  UV for NV12 is UV order in memory.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void AYUVToUVRow_C(const uint8_t* src_ayuv,
                    int src_stride_ayuv,
                    uint8_t* dst_uv,
@@ -4528,8 +4647,10 @@ void AYUVToUVRow_C(const uint8_t* src_ayuv,
     dst_uv[1] = (src_ayuv[0] + src_ayuv[src_stride_ayuv + 0] + 1) >> 1;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Filter 2 rows of AYUV UV's (444) into VU (420).
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void AYUVToVURow_C(const uint8_t* src_ayuv,
                    int src_stride_ayuv,
                    uint8_t* dst_vu,
@@ -4551,8 +4672,10 @@ void AYUVToVURow_C(const uint8_t* src_ayuv,
     dst_vu[1] = (src_ayuv[1] + src_ayuv[src_stride_ayuv + 1] + 1) >> 1;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Copy row of AYUV Y's into Y
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void AYUVToYRow_C(const uint8_t* src_ayuv, uint8_t* dst_y, int width) {
   // Output a row of Y values.
   int x;
@@ -4561,8 +4684,10 @@ void AYUVToYRow_C(const uint8_t* src_ayuv, uint8_t* dst_y, int width) {
     src_ayuv += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert UV plane of NV12 to VU of NV21.
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void SwapUVRow_C(const uint8_t* src_uv, uint8_t* dst_vu, int width) {
   int x;
   for (x = 0; x < width; ++x) {
@@ -4598,9 +4723,11 @@ void HalfMergeUVRow_C(const uint8_t* src_u,
     dst_uv[1] = (src_v[0] + src_v[src_stride_v] + 1) >> 1;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #undef STATIC_CAST
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGBToYMatrixRow_C(const uint8_t* src_rgb,
                        uint8_t* dst_y,
                        int width,
@@ -4634,8 +4761,10 @@ void RGBToUVMatrixRow_C(const uint8_t* src_rgb,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #if defined(HAS_ARGBTOYMATRIXROW_AVX2) && defined(HAS_RGB24TOARGBROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGBToYMatrixRow_AVX2(const uint8_t* src_rgb,
                           uint8_t* dst_y,
                           int width,
@@ -4650,9 +4779,11 @@ void RGBToYMatrixRow_AVX2(const uint8_t* src_rgb,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGBTOUVMATRIXROW_AVX2) && defined(HAS_RGB24TOARGBROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGBToUVMatrixRow_AVX2(const uint8_t* src_rgb,
                            int src_stride_rgb,
                            uint8_t* dst_u,
@@ -4671,10 +4802,12 @@ void RGBToUVMatrixRow_AVX2(const uint8_t* src_rgb,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGBTOUVMATRIXROW_AVX512BW) && \
     defined(HAS_RGB24TOARGBROW_AVX512BW)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGBToUVMatrixRow_AVX512BW(const uint8_t* src_rgb,
                                int src_stride_rgb,
                                uint8_t* dst_u,
@@ -4694,9 +4827,11 @@ void RGBToUVMatrixRow_AVX512BW(const uint8_t* src_rgb,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGBTOUVMATRIXROW_NEON) && defined(HAS_RGB24TOARGBROW_NEON)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGBToUVMatrixRow_NEON(const uint8_t* src_rgb,
                            int src_stride_rgb,
                            uint8_t* dst_u,
@@ -4715,8 +4850,10 @@ void RGBToUVMatrixRow_NEON(const uint8_t* src_rgb,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGB565ToYMatrixRow_C(const uint8_t* src_rgb565,
                           uint8_t* dst_y,
                           int width,
@@ -4751,8 +4888,10 @@ void RGB565ToUVMatrixRow_C(const uint8_t* src_rgb565,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #if defined(HAS_ARGBTOYMATRIXROW_AVX2) && defined(HAS_RGB565TOARGBROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGB565ToYMatrixRow_AVX2(const uint8_t* src_rgb565,
                              uint8_t* dst_y,
                              int width,
@@ -4767,9 +4906,11 @@ void RGB565ToYMatrixRow_AVX2(const uint8_t* src_rgb565,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGBTOUVMATRIXROW_AVX2) && defined(HAS_RGB565TOARGBROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGB565ToUVMatrixRow_AVX2(const uint8_t* src_rgb565,
                               int src_stride_rgb565,
                               uint8_t* dst_u,
@@ -4789,9 +4930,11 @@ void RGB565ToUVMatrixRow_AVX2(const uint8_t* src_rgb565,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_RGB565TOARGBROW_NEON) && defined(HAS_ARGBTOYMATRIXROW_NEON)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGB565ToYMatrixRow_NEON(const uint8_t* src_rgb565,
                              uint8_t* dst_y,
                              int width,
@@ -4806,9 +4949,11 @@ void RGB565ToYMatrixRow_NEON(const uint8_t* src_rgb565,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_RGB565TOARGBROW_NEON) && defined(HAS_ARGBTOUVMATRIXROW_NEON)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void RGB565ToUVMatrixRow_NEON(const uint8_t* src_rgb565,
                               int src_stride_rgb565,
                               uint8_t* dst_u,
@@ -4828,8 +4973,10 @@ void RGB565ToUVMatrixRow_NEON(const uint8_t* src_rgb565,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB1555ToYMatrixRow_C(const uint8_t* src_argb1555,
                             uint8_t* dst_y,
                             int width,
@@ -4899,9 +5046,11 @@ void ARGB4444ToUVMatrixRow_C(const uint8_t* src_argb4444,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #if defined(HAS_ARGBTOYMATRIXROW_AVX2)
 #if defined(HAS_ARGB1555TOARGBROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB1555ToYMatrixRow_AVX2(const uint8_t* src_argb1555,
                                uint8_t* dst_y,
                                int width,
@@ -4916,9 +5065,11 @@ void ARGB1555ToYMatrixRow_AVX2(const uint8_t* src_argb1555,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGB4444TOARGBROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB4444ToYMatrixRow_AVX2(const uint8_t* src_argb4444,
                                uint8_t* dst_y,
                                int width,
@@ -4933,11 +5084,13 @@ void ARGB4444ToYMatrixRow_AVX2(const uint8_t* src_argb4444,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 #endif
 
 #if defined(HAS_ARGBTOUVMATRIXROW_AVX2)
 #if defined(HAS_ARGB1555TOARGBROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB1555ToUVMatrixRow_AVX2(const uint8_t* src_argb1555,
                                 int src_stride_argb1555,
                                 uint8_t* dst_u,
@@ -4957,9 +5110,11 @@ void ARGB1555ToUVMatrixRow_AVX2(const uint8_t* src_argb1555,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGB4444TOARGBROW_AVX2)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB4444ToUVMatrixRow_AVX2(const uint8_t* src_argb4444,
                                 int src_stride_argb4444,
                                 uint8_t* dst_u,
@@ -4979,10 +5134,12 @@ void ARGB4444ToUVMatrixRow_AVX2(const uint8_t* src_argb4444,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 #endif
 
 #if defined(HAS_ARGBTOYMATRIXROW_NEON) && defined(HAS_ARGB1555TOARGBROW_NEON)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB1555ToYMatrixRow_NEON(const uint8_t* src_argb1555,
                                uint8_t* dst_y,
                                int width,
@@ -4997,9 +5154,11 @@ void ARGB1555ToYMatrixRow_NEON(const uint8_t* src_argb1555,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGBTOYMATRIXROW_NEON) && defined(HAS_ARGB4444TOARGBROW_NEON)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB4444ToYMatrixRow_NEON(const uint8_t* src_argb4444,
                                uint8_t* dst_y,
                                int width,
@@ -5014,9 +5173,11 @@ void ARGB4444ToYMatrixRow_NEON(const uint8_t* src_argb4444,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGBTOUVMATRIXROW_NEON) && defined(HAS_ARGB1555TOARGBROW_NEON)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB1555ToUVMatrixRow_NEON(const uint8_t* src_argb1555,
                                 int src_stride_argb1555,
                                 uint8_t* dst_u,
@@ -5036,9 +5197,11 @@ void ARGB1555ToUVMatrixRow_NEON(const uint8_t* src_argb1555,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #if defined(HAS_ARGBTOUVMATRIXROW_NEON) && defined(HAS_ARGB4444TOARGBROW_NEON)
+#if !defined(LIBYUV_AVIF_PROFILE)  // row_common AVIF profile
 void ARGB4444ToUVMatrixRow_NEON(const uint8_t* src_argb4444,
                                 int src_stride_argb4444,
                                 uint8_t* dst_u,
@@ -5058,6 +5221,7 @@ void ARGB4444ToUVMatrixRow_NEON(const uint8_t* src_argb4444,
     width -= twidth;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #endif
 
 #ifdef __cplusplus

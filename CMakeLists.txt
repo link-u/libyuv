@@ -100,6 +100,16 @@ if(LIBYUV_AVIF_PROFILE)
   # Allow the static library to drop unused kernels when linked into libavif.
   if(NOT MSVC)
     add_compile_options ( -ffunction-sections -fdata-sections )
+    # LTO helps the final libavif_android.so GC unused C kernels still present
+    # in the archive (e.g. leftovers in scale_common). Safe for NDK/Clang.
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT ly_ipo_ok OUTPUT ly_ipo_err)
+    if(ly_ipo_ok)
+      set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
+      message(STATUS "LIBYUV_AVIF_PROFILE: enabling LTO/IPO")
+    else()
+      message(STATUS "LIBYUV_AVIF_PROFILE: LTO not available (${ly_ipo_err})")
+    endif()
   endif()
 endif()
 

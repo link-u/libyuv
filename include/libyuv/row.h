@@ -1010,6 +1010,10 @@ typedef uint32_t ulvec32[8];
 typedef uint8_t ulvec8[32];
 #endif
 
+// Under LIBYUV_AVIF_PROFILE, drop HAS_* for kernels not used by the AVIF
+// decode path so SIMD / row_any implementations are omitted at compile time.
+#include "libyuv/avif_profile_undef_row_has.h"
+
 #if defined(__aarch64__) || defined(__arm__) || defined(__riscv)
 // This struct is for ARM and RISC-V color conversion.
 struct YuvConstants {

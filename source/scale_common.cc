@@ -64,6 +64,7 @@ void ScaleRowDown2_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown2_16_C(const uint16_t* src_ptr,
                         ptrdiff_t src_stride,
                         uint16_t* dst,
@@ -124,6 +125,7 @@ void ScaleRowDown2_16To8_Odd_C(const uint16_t* src_ptr,
   }
   dst[0] = STATIC_CAST(uint8_t, C16TO8(src_ptr[0], scale));
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleRowDown2Linear_C(const uint8_t* src_ptr,
                            ptrdiff_t src_stride,
@@ -143,6 +145,7 @@ void ScaleRowDown2Linear_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown2Linear_16_C(const uint16_t* src_ptr,
                               ptrdiff_t src_stride,
                               uint16_t* dst,
@@ -206,6 +209,7 @@ void ScaleRowDown2Linear_16To8_Odd_C(const uint16_t* src_ptr,
   }
   dst[0] = STATIC_CAST(uint8_t, C16TO8(s[0], scale));
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleRowDown2Box_C(const uint8_t* src_ptr,
                         ptrdiff_t src_stride,
@@ -250,6 +254,7 @@ void ScaleRowDown2Box_Odd_C(const uint8_t* src_ptr,
   dst[0] = (s[0] + t[0] + 1) >> 1;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown2Box_16_C(const uint16_t* src_ptr,
                            ptrdiff_t src_stride,
                            uint16_t* dst,
@@ -323,6 +328,7 @@ void ScaleRowDown2Box_16To8_Odd_C(const uint16_t* src_ptr,
   }
   dst[0] = STATIC_CAST(uint8_t, C16TO8((s[0] + t[0] + 1) >> 1, scale));
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleRowDown4_C(const uint8_t* src_ptr,
                      ptrdiff_t src_stride,
@@ -341,6 +347,7 @@ void ScaleRowDown4_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown4_16_C(const uint16_t* src_ptr,
                         ptrdiff_t src_stride,
                         uint16_t* dst,
@@ -357,6 +364,7 @@ void ScaleRowDown4_16_C(const uint16_t* src_ptr,
     dst[0] = src_ptr[2];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleRowDown4Box_C(const uint8_t* src_ptr,
                         ptrdiff_t src_stride,
@@ -395,6 +403,7 @@ void ScaleRowDown4Box_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown4Box_16_C(const uint16_t* src_ptr,
                            ptrdiff_t src_stride,
                            uint16_t* dst,
@@ -431,6 +440,7 @@ void ScaleRowDown4Box_16_C(const uint16_t* src_ptr,
              4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleRowDown34_C(const uint8_t* src_ptr,
                       ptrdiff_t src_stride,
@@ -448,6 +458,7 @@ void ScaleRowDown34_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown34_16_C(const uint16_t* src_ptr,
                          ptrdiff_t src_stride,
                          uint16_t* dst,
@@ -463,6 +474,7 @@ void ScaleRowDown34_16_C(const uint16_t* src_ptr,
     src_ptr += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Filter rows 0 and 1 together, 3 : 1
 void ScaleRowDown34_0_Box_C(const uint8_t* src_ptr,
@@ -489,6 +501,7 @@ void ScaleRowDown34_0_Box_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown34_0_Box_16_C(const uint16_t* src_ptr,
                                ptrdiff_t src_stride,
                                uint16_t* d,
@@ -512,6 +525,7 @@ void ScaleRowDown34_0_Box_16_C(const uint16_t* src_ptr,
     t += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Filter rows 1 and 2 together, 1 : 1
 void ScaleRowDown34_1_Box_C(const uint8_t* src_ptr,
@@ -538,6 +552,7 @@ void ScaleRowDown34_1_Box_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown34_1_Box_16_C(const uint16_t* src_ptr,
                                ptrdiff_t src_stride,
                                uint16_t* d,
@@ -561,6 +576,7 @@ void ScaleRowDown34_1_Box_16_C(const uint16_t* src_ptr,
     t += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Sample position: (O is src sample position, X is dst sample position)
 //
@@ -614,6 +630,7 @@ void ScaleRowUp2_Bilinear_C(const uint8_t* src_ptr,
 }
 
 // Only suitable for at most 14 bit range.
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowUp2_Linear_16_C(const uint16_t* src_ptr,
                              uint16_t* dst_ptr,
                              int dst_width) {
@@ -625,8 +642,10 @@ void ScaleRowUp2_Linear_16_C(const uint16_t* src_ptr,
     dst_ptr[2 * x + 1] = (src_ptr[x + 0] * 1 + src_ptr[x + 1] * 3 + 2) >> 2;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Only suitable for at most 12bit range.
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowUp2_Bilinear_16_C(const uint16_t* src_ptr,
                                ptrdiff_t src_stride,
                                uint16_t* dst_ptr,
@@ -650,6 +669,7 @@ void ScaleRowUp2_Bilinear_16_C(const uint16_t* src_ptr,
         (s[x + 0] * 1 + s[x + 1] * 3 + t[x + 0] * 3 + t[x + 1] * 9 + 8) >> 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Scales a single row of pixels using point sampling.
 void ScaleCols_C(uint8_t* dst_ptr,
@@ -670,6 +690,7 @@ void ScaleCols_C(uint8_t* dst_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleCols_16_C(uint16_t* dst_ptr,
                     const uint16_t* src_ptr,
                     int dst_width,
@@ -687,6 +708,7 @@ void ScaleCols_16_C(uint16_t* dst_ptr,
     dst_ptr[0] = src_ptr[x >> 16];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Scales a single row of pixels up by 2x using point sampling.
 void ScaleColsUp2_C(uint8_t* dst_ptr,
@@ -707,6 +729,7 @@ void ScaleColsUp2_C(uint8_t* dst_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleColsUp2_16_C(uint16_t* dst_ptr,
                        const uint16_t* src_ptr,
                        int dst_width,
@@ -724,6 +747,7 @@ void ScaleColsUp2_16_C(uint16_t* dst_ptr,
     dst_ptr[0] = src_ptr[0];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // (1-f)a + fb can be replaced with a + f(b-a)
 #if defined(__arm__) || defined(__aarch64__)
@@ -797,6 +821,7 @@ void ScaleFilterCols64_C(uint8_t* dst_ptr,
              (int)((((int64_t)((f)) * ((int64_t)(b) - (int)(a))) + 0x8000) >> \
                    16))
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleFilterCols_16_C(uint16_t* dst_ptr,
                           const uint16_t* src_ptr,
                           int dst_width,
@@ -851,6 +876,7 @@ void ScaleFilterCols64_16_C(uint16_t* dst_ptr,
     dst_ptr[0] = BLENDER(a, b, x & 0xffff);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #undef BLENDER
 
 void ScaleRowDown38_C(const uint8_t* src_ptr,
@@ -869,6 +895,7 @@ void ScaleRowDown38_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown38_16_C(const uint16_t* src_ptr,
                          ptrdiff_t src_stride,
                          uint16_t* dst,
@@ -884,6 +911,7 @@ void ScaleRowDown38_16_C(const uint16_t* src_ptr,
     src_ptr += 8;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // 8x3 -> 3x1
 void ScaleRowDown38_3_Box_C(const uint8_t* src_ptr,
@@ -915,6 +943,7 @@ void ScaleRowDown38_3_Box_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown38_3_Box_16_C(const uint16_t* src_ptr,
                                ptrdiff_t src_stride,
                                uint16_t* dst_ptr,
@@ -943,6 +972,7 @@ void ScaleRowDown38_3_Box_16_C(const uint16_t* src_ptr,
     dst_ptr += 3;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // 8x2 -> 3x1
 void ScaleRowDown38_2_Box_C(const uint8_t* src_ptr,
@@ -971,6 +1001,7 @@ void ScaleRowDown38_2_Box_C(const uint8_t* src_ptr,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleRowDown38_2_Box_16_C(const uint16_t* src_ptr,
                                ptrdiff_t src_stride,
                                uint16_t* dst_ptr,
@@ -996,6 +1027,7 @@ void ScaleRowDown38_2_Box_16_C(const uint16_t* src_ptr,
     dst_ptr += 3;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void ScaleAddRow_C(const uint8_t* src_ptr, uint16_t* dst_ptr, int src_width) {
   int x;
@@ -1011,6 +1043,7 @@ void ScaleAddRow_C(const uint8_t* src_ptr, uint16_t* dst_ptr, int src_width) {
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleAddRow_16_C(const uint16_t* src_ptr,
                       uint32_t* dst_ptr,
                       int src_width) {
@@ -1026,9 +1059,11 @@ void ScaleAddRow_16_C(const uint16_t* src_ptr,
     dst_ptr[0] += src_ptr[0];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // ARGB scale row functions
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleARGBRowDown2_C(const uint8_t* src_argb,
                          ptrdiff_t src_stride,
                          uint8_t* dst_argb,
@@ -1130,8 +1165,10 @@ void ScaleARGBRowDownEvenBox_C(const uint8_t* src_argb,
     dst_argb += 4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Scales a single row of pixels using point sampling.
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleARGBCols_C(uint8_t* dst_argb,
                      const uint8_t* src_argb,
                      int dst_width,
@@ -1172,8 +1209,10 @@ void ScaleARGBCols64_C(uint8_t* dst_argb,
     dst[0] = src[x >> 16];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Scales a single row of pixels up by 2x using point sampling.
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleARGBColsUp2_C(uint8_t* dst_argb,
                         const uint8_t* src_argb,
                         int dst_width,
@@ -1193,6 +1232,7 @@ void ScaleARGBColsUp2_C(uint8_t* dst_argb,
     dst[0] = src[0];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // TODO(fbarchard): Replace 0x7f ^ f with 128-f.  bug=607.
 // Mimics SSSE3 blender
@@ -1203,6 +1243,7 @@ void ScaleARGBColsUp2_C(uint8_t* dst_argb,
   BLENDERC(a, b, f, 24) | BLENDERC(a, b, f, 16) | BLENDERC(a, b, f, 8) | \
       BLENDERC(a, b, f, 0)
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleARGBFilterCols_C(uint8_t* dst_argb,
                            const uint8_t* src_argb,
                            int dst_width,
@@ -1267,6 +1308,7 @@ void ScaleARGBFilterCols64_C(uint8_t* dst_argb,
     dst[0] = BLENDER(a, b, xf);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #undef BLENDER1
 #undef BLENDERC
 #undef BLENDER
@@ -1274,6 +1316,7 @@ void ScaleARGBFilterCols64_C(uint8_t* dst_argb,
 // UV scale row functions
 // same as ARGB but 2 channels
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleUVRowDown2_C(const uint8_t* src_uv,
                        ptrdiff_t src_stride,
                        uint8_t* dst_uv,
@@ -1472,8 +1515,10 @@ void ScaleUVRowUp2_Bilinear_16_C(const uint16_t* src_ptr,
                    4;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Scales a single row of pixels using point sampling.
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleUVCols_C(uint8_t* dst_uv,
                    const uint8_t* src_uv,
                    int dst_width,
@@ -1514,8 +1559,10 @@ void ScaleUVCols64_C(uint8_t* dst_uv,
     dst[0] = src[x >> 16];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Scales a single row of pixels up by 2x using point sampling.
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleUVColsUp2_C(uint8_t* dst_uv,
                       const uint8_t* src_uv,
                       int dst_width,
@@ -1535,6 +1582,7 @@ void ScaleUVColsUp2_C(uint8_t* dst_uv,
     dst[0] = src[0];
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Performs (a + ((f * (b - a) + 64) >> 7)) which is equivalent of
 // ((a * (128 - f) + b * f + 64) >> 7).
@@ -1543,6 +1591,7 @@ void ScaleUVColsUp2_C(uint8_t* dst_uv,
   (uint16_t)(BLENDER1(((a) >> s) & 255, ((b) >> s) & 255, f) << s)
 #define BLENDER(a, b, f) BLENDERC(a, b, f, 8) | BLENDERC(a, b, f, 0)
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScaleUVFilterCols_C(uint8_t* dst_uv,
                          const uint8_t* src_uv,
                          int dst_width,
@@ -1607,6 +1656,7 @@ void ScaleUVFilterCols64_C(uint8_t* dst_uv,
     dst[0] = BLENDER(a, b, xf);
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 #undef BLENDER1
 #undef BLENDERC
 #undef BLENDER
@@ -1686,6 +1736,7 @@ void ScalePlaneVertical(int src_height,
   }
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScalePlaneVertical_16(int src_height,
                            int dst_width,
                            int dst_height,
@@ -1753,6 +1804,7 @@ void ScalePlaneVertical_16(int src_height,
     y += dy;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Use scale to convert lsb formats to msb, depending how many bits there are:
 // 32768 = 9 bits
@@ -1760,6 +1812,7 @@ void ScalePlaneVertical_16(int src_height,
 // 4096 = 12 bits
 // 256 = 16 bits
 // TODO(fbarchard): change scale to bits
+#if !defined(LIBYUV_AVIF_PROFILE)  // scale_common AVIF profile
 void ScalePlaneVertical_16To8(int src_height,
                               int dst_width,
                               int dst_height,
@@ -1822,6 +1875,7 @@ void ScalePlaneVertical_16To8(int src_height,
     y += dy;
   }
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Simplify the filtering based on scale factors.
 enum FilterMode ScaleFilterReduce(int src_width,

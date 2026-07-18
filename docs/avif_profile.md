@@ -21,6 +21,22 @@ Android NDK (`Android.mk`): `LIBYUV_AVIF_PROFILE=yes` (default).
 - `ARGBAttenuate` / `ARGBUnattenuate` / `CopyPlane` (other `planar_functions` APIs ifdef’d out)
 - NEON / NEON64 / SVE / SME (row+scale) kept for speed
 
+## Kernel trimming (LIBYUV_AVIF_PROFILE)
+
+Unused SIMD `HAS_*` macros are `#undef`'d via:
+
+- [`include/libyuv/avif_profile_undef_row_has.h`](../include/libyuv/avif_profile_undef_row_has.h)
+- [`include/libyuv/avif_profile_undef_scale_has.h`](../include/libyuv/avif_profile_undef_scale_has.h)
+
+Regenerate with `python tools/gen_avif_profile_undef_has.py`.
+
+Unused C fallbacks in `row_common.cc` / `scale_common.cc` are wrapped with
+`#if !defined(LIBYUV_AVIF_PROFILE)` (see `tools/guard_row_common_avif.py`,
+`tools/guard_scale_common_avif.py`).
+
+Non-MSVC builds also enable `-ffunction-sections` and LTO/IPO when available so
+the final `libavif_android.so` can GC leftovers after libavif LUT trimming.
+
 ## What is omitted
 
 - JPEG / MJPEG, compare, rotate
@@ -28,6 +44,7 @@ Android NDK (`Android.mk`): `LIBYUV_AVIF_PROFILE=yes` (default).
 - `scale_argb` / `scale_rgb` / `scale_uv`
 - `ScalePlane_16` / `ScalePlane_12` / `I420Scale*`
 - 10/12-bit and 422/444 / NV12 convert APIs (ifdef’d in `convert_argb.cc`)
+- Unused row/scale SIMD and C kernels (via `HAS_*` undef + source guards)
 
 ## Required libavif changes
 
