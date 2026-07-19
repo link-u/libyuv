@@ -2653,6 +2653,7 @@ void RGBAToYRow_SSSE3(const uint8_t* src_rgba, uint8_t* dst_y, int width) {
   "movdqu     %%xmm3,0x10(%[dst_ar30])                         \n" \
   "lea        0x20(%[dst_ar30]), %[dst_ar30]                   \n"
 
+#ifdef HAS_I444TOARGBROW_SSSE3
 void OMITFP I444ToARGBRow_SSSE3(const uint8_t* y_buf,
                                 const uint8_t* u_buf,
                                 const uint8_t* v_buf,
@@ -2681,6 +2682,7 @@ void OMITFP I444ToARGBRow_SSSE3(const uint8_t* y_buf,
     "xmm0", "xmm1", "xmm2", "xmm3", "xmm4", "xmm5"
   );
 }
+#endif  // HAS_I444TOARGBROW_SSSE3
 
 #ifdef HAS_I444ALPHATOARGBROW_SSSE3
 void OMITFP I444AlphaToARGBRow_SSSE3(const uint8_t* y_buf,
@@ -2713,6 +2715,7 @@ void OMITFP I444AlphaToARGBRow_SSSE3(const uint8_t* y_buf,
 }
 #endif  // HAS_I444ALPHATOARGBROW_SSSE3
 
+#if defined(HAS_I422TOARGBROW_SSSE3)
 void OMITFP I422ToRGB24Row_SSSE3(const uint8_t* y_buf,
                                  const uint8_t* u_buf,
                                  const uint8_t* v_buf,
@@ -3355,6 +3358,7 @@ void OMITFP I422ToRGBARow_SSSE3(const uint8_t* y_buf,
   );
 }
 
+#endif  // HAS_I422TOARGBROW_SSSE3
 #endif  // HAS_I422TOARGBROW_SSSE3 || HAS_I444TOARGBROW_SSSE3
 
 // Read 16 UV from 444
