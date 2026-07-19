@@ -32,16 +32,14 @@ bilinear helpers (`I420ToARGBMatrixBilinear` /
 `I420AlphaToARGBMatrixBilinear`). JNI treats libavif RGBA as libyuv ABGR via
 YVU matrices (`lutIsYVU[RGBA]=true`).
 
-### Color matrices (`getLibYUVConstants`)
+### Color matrices
 
-Kept (YUV + YVU pairs):
+Kept (YUV + YVU pair) for Android slim:
 
-- `kYuvJPEGConstants` / `kYvuJPEGConstants` — full + BT.601
-- `kYuvI601Constants` / `kYvuI601Constants` — limited + BT.601
-- `kYuvF709Constants` / `kYvuF709Constants` — full + BT.709
 - `kYuvH709Constants` / `kYvuH709Constants` — limited + BT.709
-- `kYuvV2020Constants` / `kYvuV2020Constants` — full + BT.2020
-- `kYuv2020Constants` / `kYvu2020Constants` — limited + BT.2020
+
+JNI uses YVU (`lutIsYVU[RGBA]=true`). Other matrices (BT.601 / JPEG / full
+709 / BT.2020) are omitted under `LIBYUV_AVIF_PROFILE`.
 
 ## Kernel trimming
 
@@ -71,10 +69,13 @@ Non-MSVC builds also enable `-ffunction-sections` and LTO/IPO when available.
 
 - Nearest `I420ToARGBMatrix` / `I420AlphaToARGBMatrix` and convenience wrappers
 - `I400*` / `J400*`, RGB24 / RGB565 / RGBA convert paths
-- `ARGBUnattenuate`, `ARGBCopy`, encode `ArgbConstants`
+- `ARGBUnattenuate`, `ARGBCopy`, encode `ArgbConstants` (+ neon RGB→YUV wrappers that referenced them)
 - JPEG / MJPEG, compare, rotate, RGB→YUV
 - `scale_argb` / `scale_rgb` / `scale_uv`, `ScalePlaneBox`, `ScalePlaneDown4`
 - `ScalePlane_16` / `I420Scale*` (`ScalePlane_12` is a `-1` stub for libavif link)
+
+`I444ToARGBRow_Any_NEON` is gated on `HAS_I444TOARGBROW_NEON` (not I422), so the
+bilinear path still links after I422 kernels are trimmed.
 
 ## Link notes for libavif
 

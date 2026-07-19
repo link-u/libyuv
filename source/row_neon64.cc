@@ -2839,6 +2839,7 @@ static void ARGBToUV444MatrixRow_NEON_I8MM(const uint8_t* src_argb,
 // VG -0.7344 coefficient = -94
 // VR   0.875 coefficient = 112
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // RGB→YUV encode wrappers
 void ARGBToUV444Row_NEON(const uint8_t* src_argb,
                          uint8_t* dst_u,
                          uint8_t* dst_v,
@@ -2868,6 +2869,7 @@ void ARGBToUVJ444Row_NEON_I8MM(const uint8_t* src_argb,
   ARGBToUV444MatrixRow_NEON_I8MM(src_argb, dst_u, dst_v, width,
                                  &kArgbJPEGConstants);
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #define RGBTOUV_SETUP_REG                                                  \
   "movi       v20.8h, #112          \n" /* UB/VR coefficient  (0.875)   */ \
@@ -2971,6 +2973,7 @@ void ARGBToUVMatrixRow_NEON(const uint8_t* src_argb,
         "v28");
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // RGB→YUV encode wrappers
 void ARGBToUVRow_NEON(const uint8_t* src_argb,
                       int src_stride_argb,
                       uint8_t* dst_u,
@@ -3024,6 +3027,7 @@ void ABGRToUVJRow_NEON(const uint8_t* src_abgr,
   ARGBToUVMatrixRow_NEON(src_abgr, src_stride_abgr, dst_uj, dst_vj, width,
                          &kAbgrJPEGConstants);
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void RGB24ToUVJRow_NEON(const uint8_t* src_rgb24,
                         int src_stride_rgb24,
@@ -3409,6 +3413,7 @@ void ARGBToUVMatrixRow_NEON_I8MM(const uint8_t* src_argb,
                                    width, c);
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // RGB→YUV encode wrappers
 void ARGBToUVRow_NEON_I8MM(const uint8_t* src_argb,
                            int src_stride_argb,
                            uint8_t* dst_u,
@@ -3462,6 +3467,7 @@ void ABGRToUVJRow_NEON_I8MM(const uint8_t* src_abgr,
   ARGBToUVMatrixRow_NEON_I8MM_Impl(src_abgr, src_stride_abgr, dst_u, dst_v,
                                    width, &kAbgrJPEGConstants);
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void RGB565ToYRow_NEON(const uint8_t* src_rgb565, uint8_t* dst_y, int width) {
   asm volatile(
@@ -3632,6 +3638,7 @@ void ARGBToYMatrixRow_NEON_DotProd(const uint8_t* src_argb,
 
 // RGB to JPeg coefficients
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // RGB→YUV encode wrappers
 void ARGBToYRow_NEON(const uint8_t* src_argb, uint8_t* dst_y, int width) {
   ARGBToYMatrixRow_NEON(src_argb, dst_y, width, &kArgbI601Constants);
 }
@@ -3671,9 +3678,11 @@ void ABGRToYJRow_NEON_DotProd(const uint8_t* src_abgr,
                               int width) {
   ARGBToYMatrixRow_NEON_DotProd(src_abgr, dst_yj, width, &kAbgrJPEGConstants);
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // RGBA expects first value to be A and ignored, then 3 values to contain RGB.
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // RGB→YUV encode wrappers
 void RGBAToYRow_NEON(const uint8_t* src_rgba, uint8_t* dst_y, int width) {
   ARGBToYMatrixRow_NEON(src_rgba, dst_y, width, &kRgbaI601Constants);
 }
@@ -3703,6 +3712,7 @@ void BGRAToYRow_NEON_DotProd(const uint8_t* src_bgra,
                              int width) {
   ARGBToYMatrixRow_NEON_DotProd(src_bgra, dst_y, width, &kBgraI601Constants);
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 void RGBToYMatrixRow_NEON(const uint8_t* src_rgb,
                           uint8_t* dst_y,

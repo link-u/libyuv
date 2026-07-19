@@ -1642,6 +1642,7 @@ MAKEARGBCONSTANTS(V2020, 67, 174, 15, -36, -92, 128, 128, -118, -10, 128, 32768)
 
 // TODO(fbarchard): Generate SIMD structures from float matrix.
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // only H709 limited kept for AVIF slim
 // BT.601 limited range YUV to RGB reference
 //  R = (Y - 16) * 1.164             + V * 1.596
 //  G = (Y - 16) * 1.164 - U * 0.391 - V * 0.813
@@ -1695,6 +1696,7 @@ MAKEYUVCONSTANTS(JPEG, YG, YB, UB, UG, VG, VR)
 #undef UG
 #undef VG
 #undef VR
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // BT.709 limited range YUV to RGB reference
 //  R = (Y - 16) * 1.164             + V * 1.793
@@ -1725,6 +1727,7 @@ MAKEYUVCONSTANTS(H709, YG, YB, UB, UG, VG, VR)
 #undef VG
 #undef VR
 
+#if !defined(LIBYUV_AVIF_PROFILE)  // only H709 limited kept for AVIF slim
 // BT.709 full range YUV to RGB reference
 //  R = Y               + V * 1.5748
 //  G = Y - U * 0.18732 - V * 0.46812
@@ -1802,6 +1805,7 @@ MAKEYUVCONSTANTS(V2020, YG, YB, UB, UG, VG, VR)
 #undef UG
 #undef VG
 #undef VR
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 #undef BB
 #undef BG
