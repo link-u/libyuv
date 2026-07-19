@@ -2325,7 +2325,8 @@ void RGBAToYRow_SSSE3(const uint8_t* src_rgba, uint8_t* dst_y, int width) {
 }
 #endif  // HAS_BGRATOYROW_SSSE3
 
-#if defined(HAS_I422TOARGBROW_SSSE3) || defined(HAS_I422TOARGBROW_AVX2)
+#if defined(HAS_I422TOARGBROW_SSSE3) || defined(HAS_I422TOARGBROW_AVX2) || \
+    defined(HAS_I444TOARGBROW_SSSE3) || defined(HAS_I444ALPHATOARGBROW_SSSE3)
 
 // Read 8 UV from 444
 #define READYUV444                                                \
@@ -3354,7 +3355,7 @@ void OMITFP I422ToRGBARow_SSSE3(const uint8_t* y_buf,
   );
 }
 
-#endif  // HAS_I422TOARGBROW_SSSE3
+#endif  // HAS_I422TOARGBROW_SSSE3 || HAS_I444TOARGBROW_SSSE3
 
 // Read 16 UV from 444
 #define READYUV444_AVX2                                               \
