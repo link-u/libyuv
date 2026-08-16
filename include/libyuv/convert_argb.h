@@ -24,11 +24,11 @@ extern "C" {
 // Conversion matrix for YUV to RGB
 #if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API extern const struct YuvConstants kYuvI601Constants;   // BT.601
-LIBYUV_API extern const struct YuvConstants kYuvJPEGConstants;   // BT.601 full
 #endif
+LIBYUV_API extern const struct YuvConstants kYuvJPEGConstants;   // BT.601 full
 LIBYUV_API extern const struct YuvConstants kYuvH709Constants;   // BT.709 limited
-#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API extern const struct YuvConstants kYuvF709Constants;   // BT.709 full
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API extern const struct YuvConstants kYuv2020Constants;   // BT.2020
 LIBYUV_API extern const struct YuvConstants kYuvV2020Constants;  // BT.2020 full
 #endif
@@ -36,11 +36,11 @@ LIBYUV_API extern const struct YuvConstants kYuvV2020Constants;  // BT.2020 full
 // Conversion matrix for YVU to BGR
 #if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API extern const struct YuvConstants kYvuI601Constants;   // BT.601
-LIBYUV_API extern const struct YuvConstants kYvuJPEGConstants;   // BT.601 full
 #endif
+LIBYUV_API extern const struct YuvConstants kYvuJPEGConstants;   // BT.601 full
 LIBYUV_API extern const struct YuvConstants kYvuH709Constants;   // BT.709 limited
-#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API extern const struct YuvConstants kYvuF709Constants;   // BT.709 full
+#if !defined(LIBYUV_AVIF_PROFILE)
 LIBYUV_API extern const struct YuvConstants kYvu2020Constants;   // BT.2020
 LIBYUV_API extern const struct YuvConstants kYvuV2020Constants;  // BT.2020 full
 #endif
@@ -50,11 +50,11 @@ LIBYUV_API extern const struct YuvConstants kYvuV2020Constants;  // BT.2020 full
 // TODO(fbarchard): Add macro for each Matrix function.
 #if !defined(LIBYUV_AVIF_PROFILE)
 #define kYuvI601ConstantsVU kYvuI601Constants
-#define kYuvJPEGConstantsVU kYvuJPEGConstants
 #endif
+#define kYuvJPEGConstantsVU kYvuJPEGConstants
 #define kYuvH709ConstantsVU kYvuH709Constants
-#if !defined(LIBYUV_AVIF_PROFILE)
 #define kYuvF709ConstantsVU kYvuF709Constants
+#if !defined(LIBYUV_AVIF_PROFILE)
 #define kYuv2020ConstantsVU kYvu2020Constants
 #define kYuvV2020ConstantsVU kYvuV2020Constants
 #endif

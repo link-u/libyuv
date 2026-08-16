@@ -1,7 +1,7 @@
 # LIBYUV_AVIF_PROFILE
 
 This fork builds a decode-oriented subset for libavif Android slim
-(8-bit YUV420/YUV400, RGBA Bitmap, bilinear only).
+(8-bit YUV420/YUV400/YUV444, RGBA Bitmap, bilinear 420).
 
 ## Enable
 
@@ -23,6 +23,8 @@ These match the Android slim / decode-only call sites:
 |-----|------|
 | `I420ToARGBMatrixFilter` | 8-bit YUV420 → RGBA, always bilinear |
 | `I420AlphaToARGBMatrixFilter` | 8-bit YUVA420 → RGBA, always bilinear |
+| `I444ToARGBMatrix` | 8-bit YUV444 → RGBA (no chroma upsample) |
+| `I444AlphaToARGBMatrix` | 8-bit YUVA444 → RGBA |
 | `ARGBAttenuate` | premultiply RGB×A/255 |
 | `ScalePlane` | 8-bit plane resize (bilinear; YUV400 = Y only) |
 | `CopyPlane` | identity scale path inside `ScalePlane` |
@@ -36,10 +38,13 @@ YVU matrices (`lutIsYVU[RGBA]=true`).
 
 Kept (YUV + YVU pair) for Android slim:
 
-- `kYuvH709Constants` / `kYvuH709Constants` — limited + BT.709
+- `kYuvH709Constants` / `kYvuH709Constants` — limited + BT.709 (AV1)
+- `kYuvJPEGConstants` / `kYvuJPEGConstants` — full + BT.601 (AV2)
+- `kYuvF709Constants` / `kYvuF709Constants` — full + BT.709 (AV2)
 
-JNI uses YVU (`lutIsYVU[RGBA]=true`). Other matrices (BT.601 / JPEG / full
-709 / BT.2020) are omitted under `LIBYUV_AVIF_PROFILE`.
+JNI uses YVU (`lutIsYVU[RGBA]=true`). BT.2020 and limited BT.601 matrices
+are omitted under `LIBYUV_AVIF_PROFILE`. `CMAKE_DISABLE_FIND_PACKAGE_JPEG`
+only skips libyuv's MJPEG decoder; it does not remove `kYuvJPEGConstants`.
 
 ## Kernel trimming
 
@@ -70,12 +75,12 @@ Non-MSVC builds also enable `-ffunction-sections` and LTO/IPO when available.
 - Nearest `I420ToARGBMatrix` / `I420AlphaToARGBMatrix` and convenience wrappers
 - `I400*` / `J400*`, RGB24 / RGB565 / RGBA convert paths
 - `ARGBUnattenuate`, `ARGBCopy`, encode `ArgbConstants` (+ neon RGB→YUV wrappers that referenced them)
-- JPEG / MJPEG, compare, rotate, RGB→YUV
+- MJPEG, compare, rotate, RGB→YUV
 - `scale_argb` / `scale_rgb` / `scale_uv`, `ScalePlaneBox`, `ScalePlaneDown4`
 - `ScalePlane_16` / `I420Scale*` (`ScalePlane_12` is a `-1` stub for libavif link)
 
 `I444ToARGBRow_Any_NEON` is gated on `HAS_I444TOARGBROW_NEON` (not I422), so the
-bilinear path still links after I422 kernels are trimmed.
+bilinear 420 path and I444 matrix path still link after I422 kernels are trimmed.
 
 ## Link notes for libavif
 

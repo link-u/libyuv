@@ -560,8 +560,10 @@ int U422ToABGR(const uint8_t* src_y,
                           &kYvu2020Constants,  // Use Yvu matrix
                           width, height);
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert I444 to ARGB with matrix.
+// Kept under LIBYUV_AVIF_PROFILE for 8-bit YUV444 → RGBA (AV2).
 LIBYUV_API
 int I444ToARGBMatrix(const uint8_t* src_y,
                      int src_stride_y,
@@ -655,6 +657,7 @@ int I444ToARGBMatrix(const uint8_t* src_y,
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 // Convert I444 to ARGB.
 LIBYUV_API
 int I444ToARGB(const uint8_t* src_y,
@@ -2524,8 +2527,10 @@ int I422AlphaToARGBMatrix(const uint8_t* src_y,
   }
   return 0;
 }
+#endif  // !defined(LIBYUV_AVIF_PROFILE)
 
 // Convert I444 with Alpha to preattenuated ARGB with matrix.
+// Kept under LIBYUV_AVIF_PROFILE for 8-bit YUVA444 → RGBA (AV2).
 LIBYUV_API
 int I444AlphaToARGBMatrix(const uint8_t* src_y,
                           int src_stride_y,
@@ -2660,6 +2665,7 @@ int I444AlphaToARGBMatrix(const uint8_t* src_y,
   return 0;
 }
 
+#if !defined(LIBYUV_AVIF_PROFILE)
 // Convert I420 with Alpha to ARGB.
 LIBYUV_API
 int I420AlphaToARGB(const uint8_t* src_y,

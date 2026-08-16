@@ -1,7 +1,7 @@
 # This is the Android makefile for libyuv for NDK.
 #
 # LIBYUV_AVIF_PROFILE=yes (default) builds the AVIF slim decode subset:
-# I420*MatrixFilter (bilinear), ARGBAttenuate, ScalePlane. Set
+# I420*MatrixFilter (bilinear), I444*Matrix, ARGBAttenuate, ScalePlane. Set
 # LIBYUV_AVIF_PROFILE=no for the full library.
 
 # Ignore this file during non-NDK builds.

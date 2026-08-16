@@ -3,13 +3,14 @@
 # Run with -DUNIT_TEST=ON to build unit tests
 #
 # LIBYUV_AVIF_PROFILE=ON builds a decode-oriented subset for libavif Android slim:
-# I420*MatrixFilter (bilinear), ARGBAttenuate, ScalePlane; drop encode/JPEG/compare/rotate.
+# I420*MatrixFilter (bilinear), I444*Matrix, ARGBAttenuate, ScalePlane;
+# drop encode/MJPEG/compare/rotate.
 
 cmake_minimum_required( VERSION 3.16 )
 project ( YUV C CXX )	# "C" is required even for C++ projects
 option( UNIT_TEST "Built unit tests" OFF )
 option( LIBYUV_AVIF_PROFILE
-  "AVIF slim decode: I420*MatrixFilter+ARGBAttenuate+ScalePlane; drop encode/JPEG/compare/rotate"
+  "AVIF slim decode: I420*MatrixFilter+I444*Matrix+ARGBAttenuate+ScalePlane; drop encode/MJPEG/compare/rotate"
   ON )
 
 include(CheckCSourceCompiles)
@@ -40,7 +41,7 @@ if(LIBYUV_AVIF_PROFILE)
     ${ly_src_dir}/scale_gcc.cc
     ${ly_src_dir}/scale_win.cc
     ${ly_src_dir}/video_common.cc)
-  message(STATUS "LIBYUV_AVIF_PROFILE=ON: building AVIF decode subset")
+  message(STATUS "LIBYUV_AVIF_PROFILE=ON: building AVIF decode subset (I420 Filter, I444 Matrix, H709/JPEG/F709)")
 else()
   set ( ly_common_source_files
     ${ly_src_dir}/compare.cc
